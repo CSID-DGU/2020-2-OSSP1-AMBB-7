@@ -20,4 +20,9 @@ public class CameraController : MonoBehaviour
 
         transform.LookAt(target.position);
     }
+
+    public void moveTargetPosition(float h, float v)
+    {
+        target.position = new Vector3(target.position.x + v, target.position.y, target.position.z + h);
+    }
 }
