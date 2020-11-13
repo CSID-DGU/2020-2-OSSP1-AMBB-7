@@ -16,8 +16,7 @@ public class ButtonHandler : MonoBehaviour
         WriteInfo();
         StartCoroutine(CaptureJpg());
 
-        controlObject.SetActive(true);
-        text = controlObject.GetComponent<Text>();
+        StartCoroutine(ShowSaveText());
     }
 
     public void WriteInfo()
@@ -31,7 +30,8 @@ public class ButtonHandler : MonoBehaviour
     void Start()
     {
         controlObject = GameObject.Find("SaveText");
-        controlObject.SetActive(false);
+        text = controlObject.GetComponent<Text>();
+        text.text = "";
         button = GetComponent<Button>();
         button.onClick.AddListener(OnClickButton);
     }
@@ -44,11 +44,19 @@ public class ButtonHandler : MonoBehaviour
         yield return new WaitForEndOfFrame();
 
         ScreenCapture.CaptureScreenshot("Assets/Output/3DmodelCapture.jpg");
-        text.CrossFadeAlpha(1.0f, 0.01f, false);
 
         GameObject.Find("Canvas").GetComponent<Canvas>().enabled = true;
 
         yield return new WaitForSeconds(1);
+    }
+
+    public IEnumerator ShowSaveText()
+    {
+        text.CrossFadeAlpha(1.0f, 0.01f, false);
+        text.text = "저장되었습니다!";
+        yield return new WaitForSeconds(2);
         text.CrossFadeAlpha(0.0f, 0.5f, false);
+        yield return new WaitForSeconds(0.5f);
+        text.text = "";
     }
 }
