@@ -28,9 +28,8 @@ public class ButtonHandler : MonoBehaviour
 
     public void Writetxt()
     {
-        //File.Create("Assets/Resources/3DmodelInfo.txt");
         StreamWriter sw = new StreamWriter("Assets/Output/3DmodelInfo.txt");
-        sw.WriteLine("Add 3d object's information!");
+        sw.WriteLine("Add 3d object's information (Beam's type, number, price...)");
         sw.Close();
     }
 

@@ -1,1 +1,1 @@
-Add 3d object's information!
+Add 3d object's information (Beam's type, number, price...)
