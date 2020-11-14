@@ -23,7 +23,7 @@ class BeamGenerator {
     {
         List<BeamLine> ret = new List<BeamLine>();
         int listLength = list.Count;
-        for (int i = 0; i < listLength; i++) ret[i].type = BEAM_TYPE.NONE;
+        for (int i = 0; i < listLength; i++) ret[i].type = getType(ret[i]);
         return ret;
     }
 
@@ -35,13 +35,20 @@ class BeamGenerator {
     private static BEAM_TYPE getType(in BeamLine line)
     {
         BEAM_TYPE ret;
-        if (line.start.Z == line.end.Z)
+        if (line.start.Y == line.end.Y)
         {
-            ret = BEAM_TYPE.B;
+            if (line.start.X == line.end.X)
+            {
+                ret = BEAM_TYPE.OPEN_CUBE;
+            }
+            else
+            {
+                ret = BEAM_TYPE.H_1_1_3_4;
+            }
         }
         else
         {
-            ret = BEAM_TYPE.C;
+            ret = BEAM_TYPE.PILLAR_3_2;
         }
         return ret;
     }
