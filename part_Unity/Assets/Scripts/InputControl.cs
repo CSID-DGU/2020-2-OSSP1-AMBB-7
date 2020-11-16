@@ -8,7 +8,7 @@ public class InputControl : MonoBehaviour
     public GameObject cameraOrbit;
     public static bool movable = true;
     public float rotateSpeed = 8f;
-    private float moveSpeed = 0.1f;
+    private float moveSpeed = 0.5f;
     public CameraController cameraController;
 
     private void Update()
@@ -26,10 +26,17 @@ public class InputControl : MonoBehaviour
         else if (Input.GetMouseButton(1))
         {
             float h = moveSpeed * Input.GetAxis("Mouse X");
-            float v = moveSpeed * Input.GetAxis("Mouse Y");
+            float v = -moveSpeed * Input.GetAxis("Mouse Y");
 
-            cameraOrbit.transform.position = new Vector3(cameraOrbit.transform.position.x + v, cameraOrbit.transform.position.y, cameraOrbit.transform.position.z + h);
-            cameraController.moveTargetPosition(h, v);
+            float angle = cameraOrbit.transform.eulerAngles.y * Mathf.Deg2Rad;
+
+            float xDelta = h*Mathf.Sin(angle);
+            float yDelta = v;
+            float zDelta = h*Mathf.Cos(angle);
+
+            cameraOrbit.transform.position = new Vector3(cameraOrbit.transform.position.x + xDelta, cameraOrbit.transform.position.y + yDelta, cameraOrbit.transform.position.z + zDelta);
+            
+            cameraController.moveTargetPosition(xDelta, yDelta, zDelta);
         }
 
         float scrollFactor = Input.GetAxis("Mouse ScrollWheel");
