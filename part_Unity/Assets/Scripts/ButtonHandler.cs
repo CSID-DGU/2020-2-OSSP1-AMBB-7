@@ -9,6 +9,7 @@ public class ButtonHandler : MonoBehaviour
 {
     Button button;
     Text text;
+
     public GameObject controlObject;
     
     public void OnClickButton()
@@ -29,6 +30,7 @@ public class ButtonHandler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+       
         controlObject = GameObject.Find("SaveText");
         text = controlObject.GetComponent<Text>();
         text.text = "";
