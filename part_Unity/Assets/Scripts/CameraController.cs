@@ -9,9 +9,13 @@ public class CameraController : MonoBehaviour
     public Transform cameraOrbit;
     public Transform target;
 
+    // beam들의 list에서 받은 beam들의 좌표 중 원점으로부터 가장 먼 beam의 원점 사이의 거리
+    public float max_distance = 3;
+
     void Start()
     {
         cameraOrbit.position = target.position;
+        cameraOrbit.localScale = new Vector3(max_distance, max_distance, max_distance);
     }
 
     void Update()

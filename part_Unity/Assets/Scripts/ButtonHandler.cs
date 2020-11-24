@@ -36,21 +36,25 @@ public class ButtonHandler : MonoBehaviour
         text.text = "";
         button = GetComponent<Button>();
         button.onClick.AddListener(OnClickButton);
+
     }
 
-    public IEnumerator CaptureJpg()
+    public IEnumerator CaptureJpg(string fileName = "3DmodelCapture", bool wait = true)
     {
         yield return null;
         GameObject.Find("Canvas").GetComponent<Canvas>().enabled = false;
 
         yield return new WaitForEndOfFrame();
 
-        ScreenCapture.CaptureScreenshot("Assets/Output/3DmodelCapture.jpg");
+        ScreenCapture.CaptureScreenshot("Assets/Output/" + fileName + ".jpg");
 
         GameObject.Find("Canvas").GetComponent<Canvas>().enabled = true;
 
-        yield return new WaitForSeconds(1);
+        if(wait)
+            yield return new WaitForSeconds(1);
     }
+
+    
 
     public IEnumerator ShowSaveText()
     {
