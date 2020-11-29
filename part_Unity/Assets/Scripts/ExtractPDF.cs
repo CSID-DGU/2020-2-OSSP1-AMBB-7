@@ -20,12 +20,12 @@ public class ExtractPDF : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
 	{
-		itemsEng.Add("Front View"); // Á¤¸éµµ
-		itemsEng.Add("Left Side View"); // ÁÂÃø¸éµµ
-		itemsEng.Add("Right Side View"); //¿ìÃø¸éµµ
-		itemsEng.Add("Floor Plan");// Æò¸éµµ
-		itemsEng.Add("Rear View"); // ¹è¸éµµ
-		itemsEng.Add("Bottom View"); // Àú¸éµµ;
+		itemsEng.Add("Front View"); // ï¿½ï¿½ï¿½éµµ
+		itemsEng.Add("Left Side View"); // ï¿½ï¿½ï¿½ï¿½ï¿½éµµ
+		itemsEng.Add("Right Side View"); //ï¿½ï¿½ï¿½ï¿½ï¿½éµµ
+		itemsEng.Add("Floor Plan");// ï¿½ï¿½éµµ
+		itemsEng.Add("Rear View"); // ï¿½ï¿½éµµ
+		itemsEng.Add("Bottom View"); // ï¿½ï¿½ï¿½éµµ;
 		
 
 		button = GetComponent<Button>();
