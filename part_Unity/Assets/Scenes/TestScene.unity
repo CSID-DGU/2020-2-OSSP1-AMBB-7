@@ -1784,11 +1784,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1051040583}
   m_CullTransparentMesh: 0
-<<<<<<< HEAD
 --- !u!1 &1089535315
-=======
---- !u!1 &1054647279
->>>>>>> 180288fadb19d07afed5e70a46c78ec15f8aee2e
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1796,45 +1792,20 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-<<<<<<< HEAD
   - component: {fileID: 1089535316}
   m_Layer: 0
   m_Name: H_BEAM
-=======
-  - component: {fileID: 1054647281}
-  - component: {fileID: 1054647280}
-  m_Layer: 0
-  m_Name: GameObject
->>>>>>> 180288fadb19d07afed5e70a46c78ec15f8aee2e
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
-<<<<<<< HEAD
 --- !u!4 &1089535316
-=======
---- !u!114 &1054647280
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1054647279}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3335c38a91339c3489faa8211b0dc55a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cameraOrbit: {fileID: 0}
---- !u!4 &1054647281
->>>>>>> 180288fadb19d07afed5e70a46c78ec15f8aee2e
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-<<<<<<< HEAD
   m_GameObject: {fileID: 1089535315}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -1843,15 +1814,6 @@ Transform:
   - {fileID: 7874394512766207507}
   m_Father: {fileID: 0}
   m_RootOrder: 4
-=======
-  m_GameObject: {fileID: 1054647279}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 11
->>>>>>> 180288fadb19d07afed5e70a46c78ec15f8aee2e
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1101323449
 GameObject:
@@ -3327,7 +3289,7 @@ GameObject:
   - component: {fileID: 1994735288}
   - component: {fileID: 1994735287}
   - component: {fileID: 1994735286}
-  - component: {fileID: 1994735289}
+  - component: {fileID: 1994735285}
   m_Layer: 5
   m_Name: PdfExtButton
   m_TagString: Untagged
@@ -3355,6 +3317,19 @@ RectTransform:
   m_AnchoredPosition: {x: -55.7, y: 110.8}
   m_SizeDelta: {x: 61.395355, y: 43}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1994735285
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1994735283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b90cebdd8e7194c22bd98ef9da17b28f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cameraOrbit: {fileID: 11127226}
 --- !u!114 &1994735286
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3435,26 +3410,8 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1994735283}
   m_CullTransparentMesh: 0
-<<<<<<< HEAD
 --- !u!1 &2114354940
 GameObject:
-=======
---- !u!114 &1994735289
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1994735283}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3335c38a91339c3489faa8211b0dc55a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cameraOrbit: {fileID: 11127226}
---- !u!1001 &568081758926684054
-PrefabInstance:
->>>>>>> 180288fadb19d07afed5e70a46c78ec15f8aee2e
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
