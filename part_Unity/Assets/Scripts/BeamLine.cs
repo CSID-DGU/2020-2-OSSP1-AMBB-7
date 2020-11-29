@@ -1,9 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Numerics;
+using UnityEngine;
 using BEAM_TYPE = RAKE.BEAM_TYPE;
 
-class BeamLine
+public class BeamLine
 {
     /// <summary>
     /// start: line start
@@ -19,4 +19,11 @@ class BeamLine
     /// type: beam type
     /// </summary>
     public BEAM_TYPE type;
+
+    public BeamLine(Vector3 start, Vector3 end, BEAM_TYPE type = BEAM_TYPE.NONE)
+	{
+        this.start = start;
+        this.end = end;
+        this.type = type;
+	}
 }
