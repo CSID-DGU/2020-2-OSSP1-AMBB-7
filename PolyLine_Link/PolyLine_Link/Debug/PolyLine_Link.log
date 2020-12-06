@@ -1,0 +1,25 @@
+﻿  Link.cpp
+c:\users\tiger\source\repos\polyline_link\polyline_link\link.cpp(172): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+c:\users\tiger\source\repos\polyline_link\polyline_link\link.cpp(180): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+c:\users\tiger\source\repos\polyline_link\polyline_link\link.cpp(188): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+c:\users\tiger\source\repos\polyline_link\polyline_link\link.cpp(196): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+c:\users\tiger\source\repos\polyline_link\polyline_link\link.cpp(204): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+c:\users\tiger\source\repos\polyline_link\polyline_link\link.cpp(212): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+c:\users\tiger\source\repos\polyline_link\polyline_link\link.cpp(164): warning C4101: 't' :참조되지 않은 지역 변수입니다.
+c:\users\tiger\source\repos\polyline_link\polyline_link\link.cpp(234): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+c:\users\tiger\source\repos\polyline_link\polyline_link\link.cpp(240): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+c:\users\tiger\source\repos\polyline_link\polyline_link\link.cpp(289): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+c:\users\tiger\source\repos\polyline_link\polyline_link\link.cpp(296): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+c:\users\tiger\source\repos\polyline_link\polyline_link\link.cpp(304): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+c:\users\tiger\source\repos\polyline_link\polyline_link\link.cpp(311): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+c:\users\tiger\source\repos\polyline_link\polyline_link\link.cpp(323): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+c:\users\tiger\source\repos\polyline_link\polyline_link\link.cpp(330): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+c:\users\tiger\source\repos\polyline_link\polyline_link\link.cpp(338): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+c:\users\tiger\source\repos\polyline_link\polyline_link\link.cpp(345): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+c:\users\tiger\source\repos\polyline_link\polyline_link\link.cpp(357): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+c:\users\tiger\source\repos\polyline_link\polyline_link\link.cpp(364): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+c:\users\tiger\source\repos\polyline_link\polyline_link\link.cpp(372): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+c:\users\tiger\source\repos\polyline_link\polyline_link\link.cpp(379): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+c:\users\tiger\source\repos\polyline_link\polyline_link\link.cpp(395): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+c:\users\tiger\source\repos\polyline_link\polyline_link\link.cpp(437): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+  PolyLine_Link.vcxproj -> C:\Users\tiger\source\repos\PolyLine_Link\Debug\PolyLine_Link.exe
