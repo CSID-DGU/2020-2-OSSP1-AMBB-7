@@ -410,9 +410,9 @@ xyz find_on_normal_line(map<xyz, vector<reference_wrapper<Polyline>>> coordinate
 	function < tuple<double,double>(xyz)> func;
 	double distance = numeric_limits<double>::max();
 	double temp;
-	if(t==FRONT&&t==REAR)
+	if(t==FRONT||t==REAR)
 		func = [](xyz x)->tuple<double, double> {return tuple<double,double>(get<0>(x), get<2>(x)); };
-	else if(t==RIGHT&&t==LEFT)
+	else if(t==RIGHT||t==LEFT)
 		func = [](xyz x)->tuple<double, double> {return tuple<double, double>(get<1>(x), get<2>(x)); };
 	else
 		func = [](xyz x)->tuple<double, double> {return tuple<double, double>(get<0>(x), get<1>(x)); };
@@ -421,8 +421,13 @@ xyz find_on_normal_line(map<xyz, vector<reference_wrapper<Polyline>>> coordinate
 
 	for (auto iter = coordinate_system.begin(); iter != coordinate_system.end(); iter++) {
 		if (func(iter->first) == func2()) {
-			temp = abs(get<0>(iter->first) - get<0>(p) + get<1>(iter->first) - get<1>(p) + get<2>(iter->first) - get<2>(p));
-			if (temp!=0&&temp < distance) {
+			temp = get<0>(iter->first) - get<0>(p) + get<1>(iter->first) - get<1>(p) + get<2>(iter->first) - get<2>(p);
+			if (temp < 0 && (t == REAR || t == RIGHT || t == ROOF))
+				temp = abs(temp);
+			else if (!(temp > 0 && (t == FRONT || t == LEFT || t == FLOOR)))
+				continue;
+
+			if (temp < distance) {
 				distance = temp;
 				return iter->first;
 			}

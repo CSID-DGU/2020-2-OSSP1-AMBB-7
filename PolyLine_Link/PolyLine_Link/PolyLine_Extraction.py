@@ -5,14 +5,18 @@ import csv
 
 def extract(exel):  # 엑셀로부터 선분 리스트 생성
     list_polyline = exel[exel['이름'] == '선']
-    list_a_x = list_polyline['시작 X']
-    list_a_y = list_polyline['시작 Y']
-    list_b_x = list_polyline['시작 X'] + list_polyline['델타 X']
-    list_b_y = list_polyline['시작 Y'] + list_polyline['델타 Y']
-    list_a_x = list_a_x.values.tolist()
-    list_a_y = list_a_y.values.tolist()
-    list_b_x = list_b_x.values.tolist()
-    list_b_y = list_b_y.values.tolist()
+    list_a_x = list_polyline['시작 X'].tolist()
+    list_a_y = list_polyline['시작 Y'].tolist()
+    for x in range(0, len(list_a_x)):
+        list_a_x[x] = trunc(list_a_x[x])
+    for x in range(0, len(list_a_y)):
+        list_a_y[x] = trunc(list_a_y[x])
+    list_b_x = list_polyline['델타 X'].tolist()
+    list_b_y = list_polyline['델타 Y'].tolist()
+    for x in range(0, len(list_b_x)):
+        list_b_x[x] = list_a_x[x] + list_b_x[x]
+    for x in range(0, len(list_a_y)):
+        list_b_y[x] = list_a_y[x] + list_b_y[x]
     list_line = []
     for x in range(0, len(list_a_x)):
         list_line.append(((list_a_x[x], list_a_y[x], 0), (list_b_x[x], list_b_y[x], 0)))
@@ -119,15 +123,15 @@ def max_xyz(front, rear, right, left, roof, floor):
 
 def normalize(list_line, min_x, min_y):  # 표준화
     for x in range(0, len(list_line)):
-        list_line[x] = ((trunc(list_line[x][0][0] - min_x), trunc(list_line[x][0][1] - min_y), 0),
-                        (trunc(list_line[x][1][0] - min_x), trunc(list_line[x][1][1] - min_y), 0))
+        list_line[x] = ((int(list_line[x][0][0]) - int(min_x), int(list_line[x][0][1]) - int(min_y), 0),
+                        (int(list_line[x][1][0]) - int(min_x), int(list_line[x][1][1]) - int(min_y), 0))
     return list_line
 
 
 def normalize_symmetry_x_axis(list_line, min_x, min_y):  # x축 대칭 방향 표준화
     for x in range(0, len(list_line)):
-        list_line[x] = ((trunc(min_x - list_line[x][0][0]), trunc(list_line[x][0][1] - min_y), 0),
-                        (trunc(min_x - list_line[x][1][0]), trunc(list_line[x][1][1] - min_y), 0))
+        list_line[x] = ((int(min_x) - int(list_line[x][0][0]), int(list_line[x][0][1]) - int(min_y), 0),
+                        (int(min_x) - int(list_line[x][1][0]), int(list_line[x][1][1]) - int(min_y), 0))
     return list_line
 
 
@@ -318,9 +322,9 @@ roof = open("roof_view.csv", "w", newline="")
 wr_roof = csv.writer(roof)
 for x in range(0, len(roof_floor_view_line)):
     wr_roof.writerow([roof_floor_view_line[x][0][0] / 1000, roof_floor_view_line[x][0][1] / 1000,
-                       roof_floor_view_line[x][0][2] / 1000,
-                       roof_floor_view_line[x][1][0] / 1000,
-                       roof_floor_view_line[x][1][1] / 1000, roof_floor_view_line[x][1][2] / 1000])
+                      roof_floor_view_line[x][0][2] / 1000,
+                      roof_floor_view_line[x][1][0] / 1000,
+                      roof_floor_view_line[x][1][1] / 1000, roof_floor_view_line[x][1][2] / 1000])
 roof.close()
 
 floor = open("floor_view.csv", "w", newline="")
