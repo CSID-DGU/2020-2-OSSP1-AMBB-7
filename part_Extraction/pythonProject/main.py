@@ -96,3 +96,9 @@ print("0", end=",")
 print(Right_3_y-Right_0_y, end=") \n")
 # 셀 좌표로 값 출력
 # print(load_ws.cell(1, 2).value)
+
+# sheet = wb.active
+# active 어트리뷰트에서 active sheet를 얻는다
+
+# sheet.title = "thing"
+# 타이틀 이름을 바꾼다
