@@ -6,12 +6,10 @@ using System.IO;
 
 public class ShowListHandler : MonoBehaviour
 {
-    private int[] angles = { 10, 20, 30, 40, 50, 60 };
-
     // Start is called before the first frame update
     void Start()
     {
-        string[] fileEntries = Directory.GetFiles("Assets/Output/Views/", "*.jpg");
+        string[] fileEntries = Directory.GetFiles("Assets/Output/", "*.jpg");
         List<string> files = new List<string>();
         foreach (string fileName in fileEntries)
         {
@@ -35,7 +33,7 @@ public class ShowListHandler : MonoBehaviour
     {
         int index = dropdown.value;
 
-        string[] fileEntries = Directory.GetFiles("Assets/Output/Views/", "*.jpg");
+        string[] fileEntries = Directory.GetFiles("Assets/Output/", "*.jpg");
         List<string> files2 = new List<string>();
         foreach (string fileName in fileEntries)
         {
@@ -48,8 +46,6 @@ public class ShowListHandler : MonoBehaviour
         Texture2D tex = new Texture2D(2, 2);
         tex.LoadImage(fileData);
         rawImage.texture = tex;
-
-        Debug.Log("Value: " + files2[index]);
 
     }
 }
