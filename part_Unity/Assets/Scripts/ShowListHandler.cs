@@ -27,6 +27,10 @@ public class ShowListHandler : MonoBehaviour
         }
 
         dropdown.onValueChanged.AddListener(delegate { DropdownItemSelected(dropdown); });
+
+        GameObject rawImageObj = GameObject.Find("RawImage");
+        RawImage rawImage = rawImageObj.GetComponent<RawImage>();
+        rawImage.color = (new Color(189 / 255f, 195 / 255f, 200 / 255f));
     }
 
     void DropdownItemSelected(Dropdown dropdown)
@@ -42,6 +46,7 @@ public class ShowListHandler : MonoBehaviour
 
         GameObject rawImageObj = GameObject.Find("RawImage");
         RawImage rawImage = rawImageObj.GetComponent<RawImage>();
+        rawImage.color = (new Color(255 / 255f, 255 / 255f, 255 / 255f));
         byte[] fileData = System.IO.File.ReadAllBytes(files2[index]);
         Texture2D tex = new Texture2D(2, 2);
         tex.LoadImage(fileData);
