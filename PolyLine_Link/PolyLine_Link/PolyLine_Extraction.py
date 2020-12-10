@@ -4,15 +4,15 @@ import csv
 
 
 def extract(exel):  # 엑셀로부터 선분 리스트 생성
-    list_polyline = exel[exel['이름'] == '선']
-    list_a_x = list_polyline['시작 X'].tolist()
-    list_a_y = list_polyline['시작 Y'].tolist()
+    list_polyline = exel[exel['Name'] == 'Line']
+    list_a_x = list_polyline['Start X'].tolist()
+    list_a_y = list_polyline['Start Y'].tolist()
     for x in range(0, len(list_a_x)):
         list_a_x[x] = trunc(list_a_x[x])
     for x in range(0, len(list_a_y)):
         list_a_y[x] = trunc(list_a_y[x])
-    list_b_x = list_polyline['델타 X'].tolist()
-    list_b_y = list_polyline['델타 Y'].tolist()
+    list_b_x = list_polyline['Delta X'].tolist()
+    list_b_y = list_polyline['Delta Y'].tolist()
     for x in range(0, len(list_b_x)):
         list_b_x[x] = list_a_x[x] + list_b_x[x]
     for x in range(0, len(list_a_y)):
@@ -210,7 +210,7 @@ left_side_points = extract_point(left_side_view_line)
 floor_points = extract_point(floor_view_line)
 roof_floor_points = extract_point(roof_floor_view_line)
 
-print("size={}, front point = {}".format(len(front_view_points), front_view_points))
+print("size={}\n front point = {}".format(len(front_view_points), front_view_points))
 print("rear point = {}".format(rear_view_points))
 print("right point = {}".format(right_side_points))
 print("left point = {}".format(left_side_points))
@@ -231,7 +231,7 @@ left_side_view_line = normalize_symmetry_x_axis(left_side_view_line, left_side_m
 floor_view_line = normalize(floor_view_line, floor_min_x, floor_min_y)
 roof_floor_view_line = normalize(roof_floor_view_line, roof_floor_min_x, roof_floor_min_y)
 
-print("size={}, front point = {}".format(len(front_view_points), front_view_points))
+print("size={}\n front point = {}".format(len(front_view_points), front_view_points))
 print("rear point = {}".format(rear_view_points))
 print("right point = {}".format(right_side_points))
 print("left point = {}".format(left_side_points))
