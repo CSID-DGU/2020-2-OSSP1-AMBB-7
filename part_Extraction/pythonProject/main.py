@@ -4,8 +4,8 @@ import openpyxl
 load_wb = load_workbook("test.xlsx", data_only=True)
 # 시트 이름으로 불러오기
 load_ws = load_wb['Sheet1']
-wb=openpyxl.Workbook()
-# 셀 주소로 값 출력
+wb = openpyxl.Workbook()
+# test 엑셀의 값 계산
 # Front = 정면도 = (0,x,y)
 Front_0_x = load_ws['B2'].value
 Front_0_y = load_ws['C2'].value
@@ -94,11 +94,53 @@ print("(", end="")
 print(Right_3_x-Right_0_x, end=",")
 print("0", end=",")
 print(Right_3_y-Right_0_y, end=") \n")
+
+# result 엑셀 생성
+wb = openpyxl.Workbook()
+sheet = wb.active
+sheet['B1'] = '정면도'
+sheet['A2'] = 0
+sheet['B2'] = Front_0_x-Front_0_x
+sheet['C2'] = Front_0_y-Front_0_y
+sheet['A3'] = 0
+sheet['B3'] = Front_1_x-Front_0_x
+sheet['C3'] = Front_1_y-Front_0_y
+sheet['A4'] = 0
+sheet['B4'] = Front_2_x-Front_0_x
+sheet['C4'] = Front_2_y-Front_0_y
+sheet['A5'] = 0
+sheet['B5'] = Front_3_x-Front_0_x
+sheet['C5'] = Front_3_y-Front_0_y
+
+sheet['F1'] = '평면도'
+sheet['E2'] = Floor_0_x-Floor_0_x
+sheet['F2'] = Floor_0_y-Floor_0_y
+sheet['G2'] = 0
+sheet['E3'] = Floor_1_x-Floor_0_x
+sheet['F3'] = Floor_1_y-Floor_0_y
+sheet['G3'] = 0
+sheet['E4'] = Floor_2_x-Floor_0_x
+sheet['F4'] = Floor_2_y-Floor_0_y
+sheet['G4'] = 0
+sheet['E5'] = Floor_3_x-Floor_0_x
+sheet['F5'] = Floor_3_y-Floor_0_y
+sheet['G5'] = 0
+
+sheet['J1'] = '우측면도'
+sheet['I2'] = Right_0_x-Right_0_x
+sheet['J2'] = 0
+sheet['K2'] = Right_0_y-Right_0_y
+sheet['I3'] = Right_1_x-Right_0_x
+sheet['J3'] = 0
+sheet['K3'] = Right_1_y-Right_0_y
+sheet['I4'] = Right_2_x-Right_0_x
+sheet['J4'] = 0
+sheet['K4'] = Right_2_y-Right_0_y
+sheet['I5'] = Right_3_x-Right_0_x
+sheet['J5'] = 0
+sheet['K5'] = Right_3_y-Right_0_y
+# sheet.cell(row=3, column=3).value = '3, 3'
+# sheet.append([1, 2, 3, 4, 5])
+wb.save('result.xlsx')
 # 셀 좌표로 값 출력
 # print(load_ws.cell(1, 2).value)
-
-# sheet = wb.active
-# active 어트리뷰트에서 active sheet를 얻는다
-
-# sheet.title = "thing"
-# 타이틀 이름을 바꾼다
