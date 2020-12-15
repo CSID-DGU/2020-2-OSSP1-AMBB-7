@@ -399,12 +399,26 @@ int main() {
 			}
 		}
 	}
-	ofstream os("3d.txt");
+	vector<Polyline> result;
+	bool is_in;
 	for (auto iter = copy.begin(); iter != copy.end(); iter++) {
-		for (int i = 0; i < iter->second.size(); i++) {
-			os << iter->second[i].get().getA().getX() << " " << iter->second[i].get().getA().getY() << " " << iter->second[i].get().getA().getZ() << " ";
-			os << iter->second[i].get().getB().getX() << " " << iter->second[i].get().getB().getY() << " " << iter->second[i].get().getB().getZ() << endl;
+		
+		for (int i = 0; i < iter->second.size();i++) {
+			is_in = false;
+			for (int j = 0; j < result.size(); j++) {
+				if (result[j] == iter->second[i].get()) {
+					is_in = true;
+					break;
+				}
+			}
+			if (!is_in)
+				result.push_back(iter->second[i].get());
 		}
+	}
+	ofstream os("3d.txt");
+	for (int i = 0; i < result.size(); i++) {
+		os << result[i].getA().getX() << " " << result[i].getA().getY() << " " << result[i].getA().getZ() << " ";
+		os << result[i].getB().getX() << " " << result[i].getB().getY() << " " << result[i].getB().getZ() << endl;
 	}
 	os.close();
 	return 0;
