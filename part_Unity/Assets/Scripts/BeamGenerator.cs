@@ -39,6 +39,7 @@ class BeamGenerator
 			return -1;
 		});
 		// TODO: Process
+		//
 		return ret;
 	}
 

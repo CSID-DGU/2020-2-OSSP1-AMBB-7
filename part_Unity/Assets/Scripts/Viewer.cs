@@ -87,7 +87,7 @@ public class Viewer : MonoBehaviour
 			position.z /= 2.0f;
 			createdObject = Instantiate(gameObject, position, Quaternion.Euler(rotation));
 			createdObject.transform.parent = viewerParent.transform;
-			createdObject.transform.localScale = getScale(createdObject.transform.localScale, cur[i].end - cur[i].start);
+			createdObject.transform.localScale = getScale(createdObject.transform.localScale, cur[i].end - cur[i].start, cur[i].type);
 			/*Debug.Log(createdObject.transform.position + " || " + position);*/
 		}
 		foreach (Vector3 e in connectors)
@@ -98,15 +98,18 @@ public class Viewer : MonoBehaviour
 		}
 	}
 
-	private Vector3 getScale(Vector3 obj, Vector3 length)
+	private Vector3 getScale(Vector3 obj, Vector3 length, RAKE.BEAM_TYPE type)
 	{
 		Vector3 ret = obj;
-		ret.x = ret.x * length.x;
-		ret.y = ret.y * length.y;
-		ret.z = ret.z * length.z;
-		if (ret.x == 0) ret.x = obj.x;
-		if (ret.y == 0) ret.y = obj.y;
-		if (ret.z == 0) ret.z = obj.z;
+		float len = Mathf.Sqrt(length.x * length.x + length.y * length.y + length.z * length.z);
+		if (type == RAKE.BEAM_TYPE.H)
+		{
+			ret.x *= len;
+		}
+		else if (type == RAKE.BEAM_TYPE.PILLAR)
+		{
+			ret.y *= len;
+		}
 		return ret;
 	}
 }
