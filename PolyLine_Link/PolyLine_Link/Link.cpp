@@ -259,8 +259,154 @@ int main() {
 			i = -1;
 		}
 	}
+	map < xyz, vector<reference_wrapper<Polyline>>> copy;
+	xyz temp,temp2;
+	bool overlap;
+	for (int i = 0; i < front.size(); i++) {
+		temp = xyz(front[i].getA().getX(), front[i].getA().getY(), front[i].getA().getZ());
+		temp2 = xyz(front[i].getB().getX(), front[i].getB().getY(), front[i].getB().getZ());
+		if (copy[temp].size() == 0) {
+			copy[temp].push_back(front[i]);
+			copy[temp2].push_back(front[i]);
+		}
+		else {
+			overlap = false;
+			for (int j = 0; j < copy[temp].size();j++) {
+				if (front[i] == copy[temp][j].get()) {
+					overlap = true;
+					break;
+				}
+				
+			}
+			if (!overlap) {
+				copy[temp].push_back(front[i]);
+				copy[temp2].push_back(front[i]);
+			}
+		}
 
+	}
+	for (int i = 0; i < rear.size(); i++) {
+		temp = xyz(rear[i].getA().getX(), rear[i].getA().getY(), rear[i].getA().getZ());
+		temp2 = xyz(rear[i].getB().getX(), rear[i].getB().getY(), rear[i].getB().getZ());
+		if (copy[temp].size() == 0) {
+			copy[temp].push_back(rear[i]);
+			copy[temp2].push_back(rear[i]);
+		}
+		else {
+			overlap = false;
+			for (int j = 0; j < copy[temp].size(); j++) {
+				if (rear[i] == copy[temp][j].get()) {
+					overlap = true;
+					break;
+				}
 
+			}
+			if (!overlap) {
+				copy[temp].push_back(rear[i]);
+				copy[temp2].push_back(rear[i]);
+			}
+		}
+
+	}
+	for (int i = 0; i < right.size(); i++) {
+		temp = xyz(right[i].getA().getX(), right[i].getA().getY(), right[i].getA().getZ());
+		temp2 = xyz(right[i].getB().getX(), right[i].getB().getY(), right[i].getB().getZ());
+		if (copy[temp].size() == 0) {
+			copy[temp].push_back(right[i]);
+			copy[temp2].push_back(right[i]);
+		}
+		else {
+			overlap = false;
+			for (int j = 0; j < copy[temp].size(); j++) {
+				if (right[i] == copy[temp][j].get()) {
+					overlap = true;
+					break;
+				}
+
+			}
+			if (!overlap) {
+				copy[temp].push_back(right[i]);
+				copy[temp2].push_back(right[i]);
+			}
+		}
+
+	}
+	for (int i = 0; i < left.size(); i++) {
+		temp = xyz(left[i].getA().getX(), left[i].getA().getY(), left[i].getA().getZ());
+		temp2 = xyz(left[i].getB().getX(), left[i].getB().getY(), left[i].getB().getZ());
+		if (copy[temp].size() == 0) {
+			copy[temp].push_back(left[i]);
+			copy[temp2].push_back(left[i]);
+		}
+		else {
+			overlap = false;
+			for (int j = 0; j < copy[temp].size(); j++) {
+				if (left[i] == copy[temp][j].get()) {
+					overlap = true;
+					break;
+				}
+
+			}
+			if (!overlap) {
+				copy[temp].push_back(left[i]);
+				copy[temp2].push_back(left[i]);
+			}
+		}
+
+	}
+	for (int i = 0; i < floor.size(); i++) {
+		temp = xyz(floor[i].getA().getX(), floor[i].getA().getY(), floor[i].getA().getZ());
+		temp2 = xyz(floor[i].getB().getX(), floor[i].getB().getY(), floor[i].getB().getZ());
+		if (copy[temp].size() == 0) {
+			copy[temp].push_back(floor[i]);
+			copy[temp2].push_back(floor[i]);
+		}
+		else {
+			overlap = false;
+			for (int j = 0; j < copy[temp].size(); j++) {
+				if (floor[i] == copy[temp][j].get()) {
+					overlap = true;
+					break;
+				}
+
+			}
+			if (!overlap) {
+				copy[temp].push_back(floor[i]);
+				copy[temp2].push_back(floor[i]);
+			}
+		}
+
+	}
+	for (int i = 0; i < roof.size(); i++) {
+		temp = xyz(roof[i].getA().getX(), roof[i].getA().getY(), roof[i].getA().getZ());
+		temp2 = xyz(roof[i].getB().getX(), roof[i].getB().getY(), roof[i].getB().getZ());
+		if (copy[temp].size() == 0) {
+			copy[temp].push_back(roof[i]);
+			copy[temp2].push_back(roof[i]);
+		}
+		else {
+			overlap = false;
+			for (int j = 0; j < copy[temp].size(); j++) {
+				if (roof[i] == copy[temp][j].get()) {
+					overlap = true;
+					break;
+				}
+
+			}
+			if (!overlap) {
+				copy[temp].push_back(roof[i]);
+				copy[temp2].push_back(roof[i]);
+			}
+		}
+	}
+	ofstream os("3d.txt");
+	for (auto iter = copy.begin(); iter != copy.end(); iter++) {
+		for (int i = 0; i < iter->second.size(); i++) {
+			os << iter->second[i].get().getA().getX() << " " << iter->second[i].get().getA().getY() << " " << iter->second[i].get().getA().getZ() << " ";
+			os << iter->second[i].get().getB().getX() << " " << iter->second[i].get().getB().getY() << " " << iter->second[i].get().getB().getZ() << endl;
+		}
+	}
+	os.close();
 	return 0;
 }
 
