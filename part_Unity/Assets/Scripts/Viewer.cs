@@ -6,14 +6,18 @@ public class Viewer : MonoBehaviour
 {
 	[SerializeField] private GameObject H_BEAM;
 	[SerializeField] private GameObject PILLAR;
+	[SerializeField] private GameObject CONNECTOR;
+
 	private List<BeamLine> beamLines;
 	private GameObject viewerParent;
+	private HashSet<Vector3> connectors;
 
 	private List<List<BeamLine>> beamLinesList;
 	// Start is called before the first frame update
 	void Start()
 	{
 		viewerParent = GameObject.Find("ViewerParent");
+		connectors = new HashSet<Vector3>();
 		ReadBeamLines();
 		beamLinesList = BeamGenerator.generator(beamLines);
 		View();
@@ -28,7 +32,7 @@ public class Viewer : MonoBehaviour
 	void ReadBeamLines()
 	{
 		beamLines = new List<BeamLine>(new BeamLine[]{
-		new BeamLine(new Vector3(0, 0, 0), new Vector3(0, 0, 1)),
+/*		new BeamLine(new Vector3(0, 0, 0), new Vector3(0, 0, 1)),
 		new BeamLine(new Vector3(0, 0, 0), new Vector3(1, 0, 0)),
 		new BeamLine(new Vector3(0, 0, 0), new Vector3(0, 1, 0)),
 		new BeamLine(new Vector3(1, 0, 0), new Vector3(1, 0, 1)),
@@ -39,7 +43,21 @@ public class Viewer : MonoBehaviour
 		new BeamLine(new Vector3(0, 1, 1), new Vector3(0, 0, 1)),
 		new BeamLine(new Vector3(0, 1, 1), new Vector3(1, 1, 1)),
 		new BeamLine(new Vector3(1, 1, 1), new Vector3(1, 1, 0)),
-		new BeamLine(new Vector3(1, 1, 1), new Vector3(1, 0, 1)),
+		new BeamLine(new Vector3(1, 1, 1), new Vector3(1, 0, 1)),*/
+
+
+		new BeamLine(new Vector3(0, 0, 0), new Vector3(0, 0, 2)),
+		new BeamLine(new Vector3(0, 0, 0), new Vector3(2, 0, 0)),
+		new BeamLine(new Vector3(0, 0, 0), new Vector3(0, 2, 0)),
+		new BeamLine(new Vector3(2, 0, 0), new Vector3(2, 0, 2)),
+		new BeamLine(new Vector3(2, 0, 0), new Vector3(2, 2, 0)),
+		new BeamLine(new Vector3(0, 2, 0), new Vector3(2, 2, 0)),
+		new BeamLine(new Vector3(0, 0, 2), new Vector3(2, 0, 2)),
+		new BeamLine(new Vector3(0, 2, 0), new Vector3(0, 2, 2)),
+		new BeamLine(new Vector3(0, 2, 2), new Vector3(0, 0, 2)),
+		new BeamLine(new Vector3(0, 2, 2), new Vector3(2, 2, 2)),
+		new BeamLine(new Vector3(2, 2, 2), new Vector3(2, 2, 0)),
+		new BeamLine(new Vector3(2, 2, 2), new Vector3(2, 0, 2)),
 		});
 	}
 
@@ -51,6 +69,8 @@ public class Viewer : MonoBehaviour
 		Vector3 position, rotation;
 		for (int i = 0; i < cur.Count; i++)
 		{
+			connectors.Add(cur[i].start);
+			connectors.Add(cur[i].end);
 			rotation = Vector3.zero;
 			if (cur[i].type == RAKE.BEAM_TYPE.H)
 			{
@@ -67,7 +87,26 @@ public class Viewer : MonoBehaviour
 			position.z /= 2.0f;
 			createdObject = Instantiate(gameObject, position, Quaternion.Euler(rotation));
 			createdObject.transform.parent = viewerParent.transform;
+			createdObject.transform.localScale = getScale(createdObject.transform.localScale, cur[i].end - cur[i].start);
 			/*Debug.Log(createdObject.transform.position + " || " + position);*/
 		}
+		foreach (Vector3 e in connectors)
+		{
+			gameObject = CONNECTOR;
+			createdObject = Instantiate(gameObject, e, Quaternion.identity);
+			createdObject.transform.parent = viewerParent.transform;
+		}
+	}
+
+	private Vector3 getScale(Vector3 obj, Vector3 length)
+	{
+		Vector3 ret = obj;
+		ret.x = ret.x * length.x;
+		ret.y = ret.y * length.y;
+		ret.z = ret.z * length.z;
+		if (ret.x == 0) ret.x = obj.x;
+		if (ret.y == 0) ret.y = obj.y;
+		if (ret.z == 0) ret.z = obj.z;
+		return ret;
 	}
 }

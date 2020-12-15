@@ -38,7 +38,7 @@ class BeamGenerator
 			}
 			return -1;
 		});
-		// TODO: error
+		// TODO: Process
 		return ret;
 	}
 
@@ -56,13 +56,6 @@ class BeamGenerator
 		}
 		else
 		{
-			/*if (line.start.x == line.end.x)
-			{
-				ret = BEAM_TYPE.OPEN_CUBE;
-			}
-			else
-			{
-			}*/
 			ret = BEAM_TYPE.H;
 		}
 		Debug.Log(line.start + " || " + line.end + " || " + ret);
