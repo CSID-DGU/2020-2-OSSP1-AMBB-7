@@ -10,10 +10,11 @@ public class CameraController : MonoBehaviour
     public Transform target;
 
     // beam들의 list에서 받은 beam들의 좌표 중 원점으로부터 가장 먼 beam의 원점 사이의 거리
-    public float max_distance = 3;
+    private float max_distance;
 
     void Start()
     {
+        max_distance = PlayerPrefs.GetFloat("maxDistance");
         target.position = ReadDonghos.rotatePoint;
         Debug.Log("sibal : " + ReadDonghos.rotatePoint);
         cameraOrbit.position = target.position;
