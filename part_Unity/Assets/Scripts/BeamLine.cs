@@ -5,33 +5,27 @@ using BEAM_TYPE = RAKE.BEAM_TYPE;
 
 public class BeamLine
 {
-    private Vector3 _start;
-    private Vector3 _end;
-    private BEAM_TYPE _type;
-    private string _info;
-    private int _price;
-
     /// <summary>
     /// start: line start
     /// </summary>
-    public Vector3 start { get { return _start; } }
+    public Vector3 start { get; }
 
     /// <summary>
     /// start: line end
     /// </summary>
-    public Vector3 end { get { return _end; } }
+    public Vector3 end { get; }
 
     /// <summary>
     /// type: beam type
     /// </summary>
-    public BEAM_TYPE type { get { return _type; } set { _type = value; } }
+    public BEAM_TYPE type { get; set; }
 
     /// <summary>
     /// Beam information
     /// </summary>
-    public string info { get { return _info; } }
+    public string info { get; }
 
-    public int price { get { return _price; } }
+    public int price { get; }
 
     /// <summary>
     /// default contructor
@@ -40,8 +34,8 @@ public class BeamLine
     /// <param name="end"></param>
     public BeamLine(Vector3 start, Vector3 end)
 	{
-        _start = start;
-        _end = end;
+        this.start = start;
+        this.end = end;
         type = BEAM_TYPE.NONE;
 	}
 
@@ -57,11 +51,11 @@ public class BeamLine
     /// <param name="price">price</param>
     public BeamLine(Vector3 start, Vector3 end, double H, double W, double t1, double t2, int price)
 	{
-        _start = start;
-        _end = end;
-        _type = BEAM_TYPE.H;
-        _info = setInfo(H, W, t1, t2);
-        _price = price;
+        this.start = start;
+        this.end = end;
+        type = BEAM_TYPE.H;
+        info = setInfo(H, W, t1, t2);
+        this.price = price;
     }
 
     /// <summary>
@@ -72,18 +66,18 @@ public class BeamLine
     /// <param name="t1">thickness</param>
     public BeamLine(Vector3 start, Vector3 end, double t1, int price)
     {
-        _start = start;
-        _end = end;
-        _type = BEAM_TYPE.PILLAR;
-        _info = setInfo(t1);
-        _price = price;
+        this.start = start;
+        this.end = end;
+        type = BEAM_TYPE.PILLAR;
+        info = setInfo(t1);
+        this.price = price;
     }
 
     public BeamLine(Vector3 Point, int price)
 	{
-        _start = _end = Point;
-        _type = BEAM_TYPE.CONNECTOR;
-        _price = price;
+        start = end = Point;
+        type = BEAM_TYPE.CONNECTOR;
+        this.price = price;
 	}
 
     public double getSize()

@@ -89,6 +89,10 @@ public class Viewer : MonoBehaviour
 			createdObject.transform.parent = viewerParent.transform;
 			createdObject.transform.localScale = getScale(createdObject.transform.localScale, cur[i].end - cur[i].start, cur[i].type);
 			/*Debug.Log(createdObject.transform.position + " || " + position);*/
+
+			// Add Beam Info to object
+			//createdObject.GetComponent<BeamInfo>().Info = cur[i].info; // REAL USE
+			createdObject.GetComponent<BeamInfo>().Info = "Beam " + i; // FOR TESTING
 		}
 		foreach (Vector3 e in connectors)
 		{
