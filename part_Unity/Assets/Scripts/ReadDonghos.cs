@@ -74,8 +74,8 @@ public class ReadDonghos
 				fpoints[j] = float.Parse(points[j]);
 			}
 			Vector3 p1, p2;
-			p1 = new Vector3(fpoints[0], fpoints[1], fpoints[2]);
-			p2 = new Vector3(fpoints[3], fpoints[4], fpoints[5]);
+			p1 = new Vector3(fpoints[0], fpoints[2], fpoints[1]);
+			p2 = new Vector3(fpoints[3], fpoints[5], fpoints[4]);
 			beamList.Add(new BeamLine(p1, p2));
 			UnityEngine.Debug.Log(beamList[beamList.Count - 1].start + " " + beamList[beamList.Count - 1].end);
 		}
