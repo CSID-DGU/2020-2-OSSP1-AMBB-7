@@ -29,8 +29,7 @@ public class ReadDonghos
 			StartInfo = new ProcessStartInfo
 			{
 				FileName = "CMD.exe",
-				/*				Arguments = "/C cd " + path + " & ls",*/
-				Arguments = "/C cd " + path + " & python3 PolyLine_Extraction.py",
+				Arguments = "/C cd " + path + " & " + path + "\\PolyLine_Extraction.exe",
 				UseShellExecute = false,
 				RedirectStandardOutput = true,
 				CreateNoWindow = true
@@ -48,7 +47,7 @@ public class ReadDonghos
 			StartInfo = new ProcessStartInfo
 			{
 				FileName = "CMD.exe",
-				Arguments = "/C cd " + path + " & g++ -o Link.exe Link.cpp & pwd & " + path + "\\Link.exe",
+				Arguments = "/C cd " + path + " & " + path + "\\Link.exe",
 				UseShellExecute = false,
 				RedirectStandardOutput = true,
 				RedirectStandardError = true,
