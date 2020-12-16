@@ -1093,6 +1093,7 @@ MonoBehaviour:
   cameraOrbit: {fileID: 11127226}
   rotateSpeed: 8
   cameraController: {fileID: 1321638506}
+  camera: {fileID: 1321638504}
 --- !u!4 &594216564
 Transform:
   m_ObjectHideFlags: 0
