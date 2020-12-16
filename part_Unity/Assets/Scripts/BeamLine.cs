@@ -5,9 +5,9 @@ using BEAM_TYPE = RAKE.BEAM_TYPE;
 
 public class BeamLine
 {
-    private static string _H_prefix = "H빔 : ";
-    private static string _PILLAR_prefix = "사각 기둥 : ";
-    private static string _CONNECTOR_prefix = "커넥터 : ";
+    private static string _H_prefix = "H Beam ";
+    private static string _PILLAR_prefix = "Pillar ";
+    private static string _CONNECTOR_prefix = "Connector ";
 
     /// <summary>
     /// start: line start
@@ -47,7 +47,7 @@ public class BeamLine
 			{
                 prefix = _CONNECTOR_prefix;
 			}
-            return prefix + info + "\n가격은 " + price + "원";
+            return prefix + info;
         }
     }
 

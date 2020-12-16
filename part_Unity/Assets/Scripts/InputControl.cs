@@ -7,8 +7,8 @@ public class InputControl : MonoBehaviour
 {
     public GameObject cameraOrbit;
     public static bool movable = true;
-    public float rotateSpeed = 8f;
-    private float moveSpeed = 0.5f;
+    public float rotateSpeed = 6f;
+    private float moveSpeed = 0.06f;
     public CameraController cameraController;
     public Camera camera;
 
