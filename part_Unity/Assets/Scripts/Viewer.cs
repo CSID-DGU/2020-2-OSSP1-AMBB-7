@@ -91,8 +91,8 @@ public class Viewer : MonoBehaviour
 			/*Debug.Log(createdObject.transform.position + " || " + position);*/
 
 			// Add Beam Info to object
-			//createdObject.GetComponent<BeamInfo>().Info = cur[i].info; // REAL USE
-			createdObject.GetComponent<BeamInfo>().Info = "Beam " + i; // FOR TESTING
+			createdObject.GetComponent<BeamInfo>().Info = cur[i].InfoToPrint; // REAL USE
+			//createdObject.GetComponent<BeamInfo>().Info = "Beam " + i; // FOR TESTING
 		}
 		foreach (Vector3 e in connectors)
 		{

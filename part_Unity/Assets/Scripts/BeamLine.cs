@@ -5,6 +5,10 @@ using BEAM_TYPE = RAKE.BEAM_TYPE;
 
 public class BeamLine
 {
+    private static string _H_prefix = "H빔 : ";
+    private static string _PILLAR_prefix = "사각 기둥 : ";
+    private static string _CONNECTOR_prefix = "커넥터 : ";
+
     /// <summary>
     /// start: line start
     /// </summary>
@@ -20,10 +24,32 @@ public class BeamLine
     /// </summary>
     public BEAM_TYPE type { get; set; }
 
+
     /// <summary>
     /// Beam information
     /// </summary>
-    public string info { get; }
+    public string info { get; set; }
+
+    /// <summary>
+    /// Beam information to print
+    /// </summary>
+    public string InfoToPrint { get {
+            string prefix = "";
+            if (type == RAKE.BEAM_TYPE.H)
+            {
+                prefix = _H_prefix;
+            }
+            else if (type == RAKE.BEAM_TYPE.PILLAR)
+            {
+                prefix = _PILLAR_prefix;
+            }
+            else if (type == RAKE.BEAM_TYPE.CONNECTOR)
+			{
+                prefix = _CONNECTOR_prefix;
+			}
+            return prefix + info + "\n가격은 " + price + "원";
+        }
+    }
 
     public int price { get; }
 
@@ -37,6 +63,7 @@ public class BeamLine
         this.start = start;
         this.end = end;
         type = BEAM_TYPE.NONE;
+        info = "";
 	}
 
     /// <summary>
@@ -54,7 +81,7 @@ public class BeamLine
         this.start = start;
         this.end = end;
         type = BEAM_TYPE.H;
-        info = setInfo(H, W, t1, t2);
+        info = getInfo(H, W, t1, t2);
         this.price = price;
     }
 
@@ -69,7 +96,7 @@ public class BeamLine
         this.start = start;
         this.end = end;
         type = BEAM_TYPE.PILLAR;
-        info = setInfo(t1);
+        info = getInfo(t1);
         this.price = price;
     }
 
@@ -92,13 +119,21 @@ public class BeamLine
         return ret;
 	}
 
-    public string setInfo(double H, double W, double t1, double t2)
+    public string getInfo(double H, double W, double t1, double t2)
 	{
         return H + "×" + W + "×" + t1 + "×" + t2;
 	}
 
-    public string setInfo(double t1)
+    public string getInfo(double t1)
 	{
         return 100 + "×" + 100 + "×" + t1;
     }
+
+    public double getLength()
+	{
+        float dx = start.x - end.x;
+        float dy = start.y - end.y;
+        float dz = start.z - end.z;
+        return Mathf.Sqrt(dx * dx + dy * dy + dz * dz);
+	}
 }

@@ -38,8 +38,49 @@ class BeamGenerator
 			}
 			return -1;
 		});
-		// TODO: Process
-		//
+		// sort given BEAM
+		List<BeamLine> HBeam = BeamManager.HBeam;
+		List<BeamLine> Pillar = BeamManager.PillarBeam;
+		HBeam.Sort(delegate (BeamLine l, BeamLine r)
+		{
+			if (l.getSize() > r.getSize()) return 1;
+			return -1;
+		});
+		Pillar.Sort(delegate (BeamLine l, BeamLine r)
+		{
+			if (l.getSize() > r.getSize()) return 1;
+			return -1;
+		});
+		int hIdx = 0, pIdx = 0;
+		bool isH = true;
+		int HLength = HBeam.Count, PillarLength = Pillar.Count;
+		for (int i = 0; i < listLength; i++)
+		{
+			if (isH)
+			{
+				if (ret[i].type == BEAM_TYPE.PILLAR)
+				{
+					hIdx++;
+					if (hIdx <= HLength) hIdx = HLength - 1;
+					i--;
+					isH = false;
+					continue;
+				}
+				ret[i].info = HBeam[hIdx].info;
+			}
+			else
+			{
+				if (ret[i].type == BEAM_TYPE.H)
+				{
+					pIdx++;
+					if (pIdx <= PillarLength) pIdx = PillarLength - 1;
+					i--;
+					isH = true;
+					continue;
+				}
+				ret[i].info = Pillar[pIdx].info;
+			}
+		}
 		return ret;
 	}
 
@@ -59,7 +100,7 @@ class BeamGenerator
 		{
 			ret = BEAM_TYPE.H;
 		}
-		Debug.Log(line.start + " || " + line.end + " || " + ret);
+/*		Debug.Log(line.start + " || " + line.end + " || " + ret);*/
 		return ret;
 	}
 }
