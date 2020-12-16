@@ -66,13 +66,40 @@ class BeamGenerator
 		int hIdx = 0, pIdx = 0;
 		bool isH = true;
 		int HLength = HBeam.Count, PillarLength = Pillar.Count;
+		int totalFloor = 1;
 		for (int i = 0; i < listLength; i++)
 		{
 			if (isH)
 			{
 				if (ret[i].type == BEAM_TYPE.PILLAR)
 				{
-					hIdx++;
+					i--;
+					isH = false;
+					continue;
+				}
+				ret[i].info = HBeam[hIdx].info;
+			}
+			else
+			{
+				if (ret[i].type == BEAM_TYPE.H)
+				{
+					isH = true;
+					totalFloor++;
+					i--;
+					continue;
+				}
+				ret[i].info = Pillar[pIdx].info;
+			}
+		}
+		isH = true;
+		int curFloor = 1;
+		for (int i = 0; i < listLength; i++)
+		{
+			if (isH)
+			{
+				if (ret[i].type == BEAM_TYPE.PILLAR)
+				{
+					hIdx = curFloor * HLength / totalFloor;
 					if (hIdx <= HLength) hIdx = HLength - 1;
 					i--;
 					isH = false;
@@ -84,9 +111,10 @@ class BeamGenerator
 			{
 				if (ret[i].type == BEAM_TYPE.H)
 				{
-					pIdx++;
+					pIdx = curFloor * PillarLength / (totalFloor - 1);
 					if (pIdx <= PillarLength) pIdx = PillarLength - 1;
 					i--;
+					curFloor++;
 					isH = true;
 					continue;
 				}
