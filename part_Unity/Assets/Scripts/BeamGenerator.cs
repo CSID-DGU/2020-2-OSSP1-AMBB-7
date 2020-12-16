@@ -55,12 +55,12 @@ class BeamGenerator
 		List<BeamLine> Pillar = BeamManager.PillarBeam;
 		HBeam.Sort(delegate (BeamLine l, BeamLine r)
 		{
-			if (l.getSize() > r.getSize()) return 1;
+			if (l.getSize() < r.getSize()) return 1;
 			return -1;
 		});
 		Pillar.Sort(delegate (BeamLine l, BeamLine r)
 		{
-			if (l.getSize() > r.getSize()) return 1;
+			if (l.getSize() < r.getSize()) return 1;
 			return -1;
 		});
 		int hIdx = 0, pIdx = 0;
@@ -104,7 +104,7 @@ class BeamGenerator
 	private static BEAM_TYPE getType(in BeamLine line)
 	{
 		BEAM_TYPE ret;
-		if (line.start.y != line.end.y)
+		if (line.start.y != line.end.y && line.start.x == line.end.x && line.start.z == line.end.z)
 		{
 			ret = BEAM_TYPE.PILLAR;
 		}
