@@ -286,52 +286,52 @@ front = open("front_view.csv", "w", newline="")
 wr_front = csv.writer(front)
 for x in range(0, len(front_view_line)):
     wr_front.writerow(
-        [front_view_line[x][0][0] / 1000, front_view_line[x][0][1] / 1000, front_view_line[x][0][2] / 1000,
-         front_view_line[x][1][0] / 1000,
-         front_view_line[x][1][1] / 1000, front_view_line[x][1][2] / 1000])
+        [front_view_line[x][0][0], front_view_line[x][0][1], front_view_line[x][0][2],
+         front_view_line[x][1][0] ,
+         front_view_line[x][1][1] , front_view_line[x][1][2] ])
 front.close()
 
 rear = open("rear_view.csv", "w", newline="")
 wr_rear = csv.writer(rear)
 for x in range(0, len(rear_view_line)):
     wr_rear.writerow(
-        [rear_view_line[x][0][0] / 1000, rear_view_line[x][0][1] / 1000, rear_view_line[x][0][2] / 1000,
-         rear_view_line[x][1][0] / 1000,
-         rear_view_line[x][1][1] / 1000, rear_view_line[x][1][2] / 1000])
+        [rear_view_line[x][0][0] , rear_view_line[x][0][1] , rear_view_line[x][0][2] ,
+         rear_view_line[x][1][0] ,
+         rear_view_line[x][1][1] , rear_view_line[x][1][2]])
 rear.close()
 
 right = open("right_view.csv", "w", newline="")
 wr_right = csv.writer(right)
 for x in range(0, len(right_side_view_line)):
-    wr_right.writerow([right_side_view_line[x][0][0] / 1000, right_side_view_line[x][0][1] / 1000,
-                       right_side_view_line[x][0][2] / 1000,
-                       right_side_view_line[x][1][0] / 1000,
-                       right_side_view_line[x][1][1] / 1000, right_side_view_line[x][1][2] / 1000])
+    wr_right.writerow([right_side_view_line[x][0][0], right_side_view_line[x][0][1],
+                       right_side_view_line[x][0][2] ,
+                       right_side_view_line[x][1][0] ,
+                       right_side_view_line[x][1][1] , right_side_view_line[x][1][2] ])
 right.close()
 
 left = open("left_view.csv", "w", newline="")
 wr_left = csv.writer(left)
 for x in range(0, len(left_side_view_line)):
     wr_left.writerow(
-        [left_side_view_line[x][0][0] / 1000, left_side_view_line[x][0][1] / 1000, left_side_view_line[x][0][2] / 1000,
-         left_side_view_line[x][1][0] / 1000,
-         left_side_view_line[x][1][1] / 1000, left_side_view_line[x][1][2] / 1000])
+        [left_side_view_line[x][0][0] , left_side_view_line[x][0][1] , left_side_view_line[x][0][2],
+         left_side_view_line[x][1][0] ,
+         left_side_view_line[x][1][1] , left_side_view_line[x][1][2] ])
 left.close()
 
 roof = open("roof_view.csv", "w", newline="")
 wr_roof = csv.writer(roof)
 for x in range(0, len(roof_floor_view_line)):
-    wr_roof.writerow([roof_floor_view_line[x][0][0] / 1000, roof_floor_view_line[x][0][1] / 1000,
-                      roof_floor_view_line[x][0][2] / 1000,
-                      roof_floor_view_line[x][1][0] / 1000,
-                      roof_floor_view_line[x][1][1] / 1000, roof_floor_view_line[x][1][2] / 1000])
+    wr_roof.writerow([roof_floor_view_line[x][0][0] , roof_floor_view_line[x][0][1] ,
+                      roof_floor_view_line[x][0][2] ,
+                      roof_floor_view_line[x][1][0] ,
+                      roof_floor_view_line[x][1][1] , roof_floor_view_line[x][1][2] ])
 roof.close()
 
 floor = open("floor_view.csv", "w", newline="")
 wr_floor = csv.writer(floor)
 for x in range(0, len(floor_view_line)):
     wr_floor.writerow(
-        [floor_view_line[x][0][0] / 1000, floor_view_line[x][0][1] / 1000, floor_view_line[x][0][2] / 1000,
-         floor_view_line[x][1][0] / 1000,
-         floor_view_line[x][1][1] / 1000, floor_view_line[x][1][2] / 1000])
+        [floor_view_line[x][0][0] , floor_view_line[x][0][1] , floor_view_line[x][0][2] ,
+         floor_view_line[x][1][0] ,
+         floor_view_line[x][1][1] , floor_view_line[x][1][2] ])
 floor.close()
