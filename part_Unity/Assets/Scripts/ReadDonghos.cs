@@ -76,6 +76,7 @@ public class ReadDonghos
 				CreateNoWindow = true
 			}
 		};
+		UnityEngine.Debug.Log("/C " + path + "\\PolyLine_Extraction.exe");
 		proc.Start();
 		proc.WaitForExit();
 		proc.Close();
@@ -88,7 +89,7 @@ public class ReadDonghos
 			StartInfo = new ProcessStartInfo
 			{
 				FileName = "CMD.exe",
-				Arguments = "/C cd " + path + " & " + path + "\\Link.exe",
+				Arguments = "/C " + path + "\\Link.exe",
 				UseShellExecute = false,
 				RedirectStandardOutput = true,
 				RedirectStandardError = true,
@@ -98,6 +99,7 @@ public class ReadDonghos
 		proc.Start();
 		proc.WaitForExit();
 		proc.Close();
+		UnityEngine.Debug.Log("/C cd " + path + " & " + path + "\\Link.exe");
 	}
 
 	private void ReadTXTFiles()
