@@ -6,6 +6,7 @@
 #include <fstream>
 #include <map>
 #include <tuple>
+#include <limits>
 using namespace std;
 typedef tuple<double, double, double> xyz;
 enum TYPE		//도면 타입

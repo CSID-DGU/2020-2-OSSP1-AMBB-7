@@ -32,8 +32,8 @@ public class Viewer : MonoBehaviour
 
 	void ReadBeamLines()
 	{
-		beamLines = new List<BeamLine>(new BeamLine[]{
-/*		new BeamLine(new Vector3(0, 0, 0), new Vector3(0, 0, 1)),
+		/*beamLines = new List<BeamLine>(new BeamLine[]{
+*//*		new BeamLine(new Vector3(0, 0, 0), new Vector3(0, 0, 1)),
 		new BeamLine(new Vector3(0, 0, 0), new Vector3(1, 0, 0)),
 		new BeamLine(new Vector3(0, 0, 0), new Vector3(0, 1, 0)),
 		new BeamLine(new Vector3(1, 0, 0), new Vector3(1, 0, 1)),
@@ -44,7 +44,7 @@ public class Viewer : MonoBehaviour
 		new BeamLine(new Vector3(0, 1, 1), new Vector3(0, 0, 1)),
 		new BeamLine(new Vector3(0, 1, 1), new Vector3(1, 1, 1)),
 		new BeamLine(new Vector3(1, 1, 1), new Vector3(1, 1, 0)),
-		new BeamLine(new Vector3(1, 1, 1), new Vector3(1, 0, 1)),*/
+		new BeamLine(new Vector3(1, 1, 1), new Vector3(1, 0, 1)),*//*
 
 
 		new BeamLine(new Vector3(0, 0, 0), new Vector3(0, 0, 2)),
@@ -62,6 +62,21 @@ public class Viewer : MonoBehaviour
 
 		new BeamLine(new Vector3(10, 10, 10), new Vector3(15, 15, 15))
 		});
+=======
+		new BeamLine(new Vector3(0, 0, 0), new Vector3(2, 0, 0)),
+		new BeamLine(new Vector3(0, 0, 0), new Vector3(0, 2, 0)),
+		new BeamLine(new Vector3(2, 0, 0), new Vector3(2, 0, 2)),
+		new BeamLine(new Vector3(2, 0, 0), new Vector3(2, 2, 0)),
+		new BeamLine(new Vector3(0, 2, 0), new Vector3(2, 2, 0)),
+		new BeamLine(new Vector3(0, 0, 2), new Vector3(2, 0, 2)),
+		new BeamLine(new Vector3(0, 2, 0), new Vector3(0, 2, 2)),
+		new BeamLine(new Vector3(0, 2, 2), new Vector3(0, 0, 2)),
+		new BeamLine(new Vector3(0, 2, 2), new Vector3(2, 2, 2)),
+		new BeamLine(new Vector3(2, 2, 2), new Vector3(2, 2, 0)),
+		new BeamLine(new Vector3(2, 2, 2), new Vector3(2, 0, 2)),
+		});*/
+		ReadDonghos readDonghos = new ReadDonghos();
+		beamLines = readDonghos.run();
 	}
 
 	void View() // TODO: Modify to show a list of various combinations. Just one for now.

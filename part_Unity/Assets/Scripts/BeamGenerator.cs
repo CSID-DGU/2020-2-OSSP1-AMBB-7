@@ -27,7 +27,7 @@ class BeamGenerator
 		List<BeamLine> ret = new List<BeamLine>(list);
 		int listLength = list.Count;
 		for (int i = 0; i < listLength; i++) ret[i].type = getType(ret[i]);
-		ret.Sort(delegate (BeamLine l, BeamLine r)
+		Func<BeamLine, BeamLine, int> comp = delegate (BeamLine l, BeamLine r)
 		{
 			double lM = Math.Max(l.start.y, l.end.y), rM = Math.Max(r.start.y, r.end.y);
 			double lm = Math.Min(l.start.y, l.end.y), rm = Math.Min(r.start.y, r.end.y);
@@ -37,7 +37,19 @@ class BeamGenerator
 				if (lm == lM && rm != rM) return 1;
 			}
 			return -1;
-		});
+		};
+		for (int i = 0; i < listLength; i++)
+		{
+			for (int j = i + 1; j < listLength; j++)
+			{
+				if (comp(ret[i], ret[j]) == 1)
+				{
+					BeamLine t = ret[i];
+					ret[i] = ret[j];
+					ret[j] = t;
+				}
+			}
+		}
 		// sort given BEAM
 		List<BeamLine> HBeam = BeamManager.HBeam;
 		List<BeamLine> Pillar = BeamManager.PillarBeam;

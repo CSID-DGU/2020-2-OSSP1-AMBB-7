@@ -10,6 +10,7 @@ public class InputControl : MonoBehaviour
     public float rotateSpeed = 8f;
     private float moveSpeed = 0.5f;
     public CameraController cameraController;
+    public Camera camera;
 
     private void Update()
     {
@@ -43,7 +44,14 @@ public class InputControl : MonoBehaviour
 
         if (scrollFactor != 0)
         {
-            cameraOrbit.transform.localScale = cameraOrbit.transform.localScale * (1f - scrollFactor);
+            if (!camera.orthographic)
+            {
+                cameraOrbit.transform.localScale = cameraOrbit.transform.localScale * (1f - scrollFactor);
+            }
+            else
+            {
+                camera.orthographicSize -= scrollFactor;
+            }
         }
     }
 }
