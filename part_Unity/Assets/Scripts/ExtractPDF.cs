@@ -43,7 +43,7 @@ public class ExtractPDF : MonoBehaviour {
 		foreach (var item in itemsEng)
 		{
 			cameraOrbit.transform.eulerAngles = angles[idx];
-			StartCoroutine(GameObject.Find("Button").GetComponent<ButtonHandler>().CaptureJpg("Views/" + item, false));
+			StartCoroutine(GameObject.Find("Button").GetComponent<ButtonHandler>().CaptureJpgforPDF("Views/" + item, false));
 			yield return new WaitForSeconds(0.2f);
 			Debug.Log(idx);
 			idx++;
