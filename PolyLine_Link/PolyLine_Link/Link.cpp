@@ -426,8 +426,8 @@ int main() {
 	}
 	ofstream os("3d.txt");		//텍스트 파일 출력
 	for (int i = 0; i < result.size(); i++) {
-		os << result[i].getA().getX() << " " << result[i].getA().getY() << " " << result[i].getA().getZ() << " ";
-		os << result[i].getB().getX() << " " << result[i].getB().getY() << " " << result[i].getB().getZ();
+		os << result[i].getA().getX() / 100.0 << " " << result[i].getA().getY() / 100.0 << " " << result[i].getA().getZ() / 100.0 << " ";
+		os << result[i].getB().getX() / 100.0 << " " << result[i].getB().getY() / 100.0 << " " << result[i].getB().getZ() / 100.0;
 		if (i != (result.size() - 1))
 			os << endl;
 	}
