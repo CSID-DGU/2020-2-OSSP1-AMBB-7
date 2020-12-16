@@ -10,7 +10,7 @@ public class ReadDonghos
 	public static Vector3 rotatePoint = new Vector3(0, 0, 0);
 	public ReadDonghos()
 	{
-		path = System.Environment.CurrentDirectory + "\\Assets\\Scripts";
+		path = System.Environment.CurrentDirectory;
 		beamList = new List<BeamLine>();
 	}
 
@@ -30,7 +30,7 @@ public class ReadDonghos
 			{
 				FileName = "CMD.exe",
 				/*				Arguments = "/C cd " + path + " & ls",*/
-				Arguments = "/C cd " + path + "\\Donghos & python3 PolyLine_Extraction.py",
+				Arguments = "/C cd " + path + " & python3 PolyLine_Extraction.py",
 				UseShellExecute = false,
 				RedirectStandardOutput = true,
 				CreateNoWindow = true
@@ -48,7 +48,7 @@ public class ReadDonghos
 			StartInfo = new ProcessStartInfo
 			{
 				FileName = "CMD.exe",
-				Arguments = "/C cd " + path + "\\Donghos & g++ -o Link.exe Link.cpp & pwd & " + path + "\\Donghos\\Link.exe",
+				Arguments = "/C cd " + path + " & g++ -o Link.exe Link.cpp & pwd & " + path + "\\Link.exe",
 				UseShellExecute = false,
 				RedirectStandardOutput = true,
 				RedirectStandardError = true,
@@ -62,7 +62,7 @@ public class ReadDonghos
 
 	private void ReadTXTFiles()
 	{
-		string textValue = System.IO.File.ReadAllText(path + "\\Donghos\\3d.txt");
+		string textValue = System.IO.File.ReadAllText(path + "\\3d.txt");
 		UnityEngine.Debug.Log(textValue);
 		string[] lines = textValue.Split('\n');
 		for (int i = 0; i < lines.Length; i++)
