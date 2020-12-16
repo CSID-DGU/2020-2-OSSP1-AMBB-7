@@ -14,6 +14,8 @@ public class CameraController : MonoBehaviour
 
     void Start()
     {
+        target.position = ReadDonghos.rotatePoint;
+        Debug.Log("sibal : " + ReadDonghos.rotatePoint);
         cameraOrbit.position = target.position;
         cameraOrbit.localScale = new Vector3(max_distance, max_distance, max_distance);
     }
@@ -25,8 +27,8 @@ public class CameraController : MonoBehaviour
         transform.LookAt(target.position);
     }
 
-    public void moveTargetPosition(float xDelta, float yDelta, float zDelta)
+    public void moveTargetPosition(float xDelta, float yDelta, float zDelta, int ratio = 1)
     {
-        target.position = new Vector3(target.position.x + xDelta, target.position.y + yDelta, target.position.z + zDelta);
+        target.position = new Vector3(ratio * target.position.x + xDelta, ratio * target.position.y + yDelta, ratio * target.position.z + zDelta);
     }
 }

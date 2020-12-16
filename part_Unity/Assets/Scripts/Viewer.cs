@@ -15,7 +15,7 @@ public class Viewer : MonoBehaviour
 
 	private List<List<BeamLine>> beamLinesList;
 	// Start is called before the first frame update
-	void Start()
+	void Awake()
 	{
 		viewerParent = GameObject.Find("ViewerParent");
 		connectors = new HashSet<Vector3>();

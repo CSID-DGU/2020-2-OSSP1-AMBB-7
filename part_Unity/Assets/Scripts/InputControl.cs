@@ -39,6 +39,11 @@ public class InputControl : MonoBehaviour
             
             cameraController.moveTargetPosition(xDelta, yDelta, zDelta);
         }
+        else if(Input.GetKeyDown(KeyCode.F))
+        {
+            cameraController.moveTargetPosition(ReadDonghos.rotatePoint.x, ReadDonghos.rotatePoint.y, ReadDonghos.rotatePoint.z, 0);
+            cameraOrbit.transform.position = ReadDonghos.rotatePoint;
+        }
 
         float scrollFactor = Input.GetAxis("Mouse ScrollWheel");
 

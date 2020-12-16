@@ -279,14 +279,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 11127226}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0.35355338, y: -0.1464466, z: 0.35355338, w: 0.8535535}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_Children:
   - {fileID: 1321638505}
   m_Father: {fileID: 0}
   m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 45, y: 0, z: 45}
 --- !u!1 &51495650
 GameObject:
   m_ObjectHideFlags: 0
@@ -2037,14 +2037,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1089535315}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
   m_LocalPosition: {x: -39.260998, y: 0, z: 6.4890003}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7874394512766207507}
   m_Father: {fileID: 0}
   m_RootOrder: 15
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!65 &1089535317
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2660,7 +2660,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.7423906, g: 0.7638657, b: 0.7830189, a: 0}
+  m_BackGroundColor: {r: 0.101960786, g: 0.08627451, b: 0.09803922, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -2676,8 +2676,8 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
-  orthographic: 0
-  orthographic size: 5
+  orthographic: 1
+  orthographic size: 3
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -2721,7 +2721,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraOrbit: {fileID: 11127230}
   target: {fileID: 439086296}
-  max_distance: 5
+  max_distance: 1.5
 --- !u!1 &1410813264
 GameObject:
   m_ObjectHideFlags: 0
