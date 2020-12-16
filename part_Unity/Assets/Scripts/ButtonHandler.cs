@@ -55,8 +55,21 @@ public class ButtonHandler : MonoBehaviour
         if(wait)
             yield return new WaitForSeconds(1);
     }
+    public IEnumerator CaptureJpgforPDF(string fileName = "3DmodelCapture", bool wait = true)
+    {
+        yield return null;
+        GameObject.Find("Canvas").GetComponent<Canvas>().enabled = false;
 
-    
+        yield return new WaitForEndOfFrame();
+
+        ScreenCapture.CaptureScreenshot("Assets/Output/" + fileName + ".jpg");
+
+        GameObject.Find("Canvas").GetComponent<Canvas>().enabled = true;
+
+        if (wait)
+            yield return new WaitForSeconds(1);
+    }
+
 
     public IEnumerator ShowSaveText()
     {
