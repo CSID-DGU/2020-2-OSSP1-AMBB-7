@@ -8,7 +8,6 @@ public class BeamInfo : MonoBehaviour
     private Text beamInfoText;
     private MeshRenderer mesh;
     private Color original = new Color(0.8f, 0.8f, 0.8f);
-    //private Color highlight = new Color(0.79f, 0.75f, 0.3f);
     private Color highlight = new Color(0.4f, 1f, 0.4f);
     public string Info { get; set; }
 
@@ -17,12 +16,6 @@ public class BeamInfo : MonoBehaviour
         beamInfoText = GameObject.Find("BeamInfoWindow/Text").GetComponent<Text>();
         mesh = GetComponentInChildren<MeshRenderer>();
     }
-
-    //private void OnMouseOver()
-    //{
-    //    beamInfoText.text = Info;
-    //    mesh.material.color = highlight;
-    //}
 
     private void OnMouseEnter()
     {
@@ -33,6 +26,7 @@ public class BeamInfo : MonoBehaviour
 
     private void OnMouseExit()
     {
+        beamInfoText.text = "";
         mesh.material.color = original;
     }
 }
