@@ -8,7 +8,7 @@
 #include <tuple>
 #include <limits>
 using namespace std;
-typedef tuple<double, double, double> xyz;
+typedef tuple<int, int, int> xyz;
 enum TYPE		//도면 타입
 {
 	FRONT, REAR, RIGHT, LEFT, ROOF, FLOOR
@@ -23,17 +23,17 @@ xyz find_on_normal_line(map<xyz, vector<reference_wrapper<Polyline>>>& coordinat
 void PointShift(map<xyz, vector<reference_wrapper<Polyline>>>& coordinate_system, map<xyz, vector<reference_wrapper<Polyline>>>::iterator iter);
 void PolylineShift(map<xyz, vector<reference_wrapper<Polyline>>>& coordinate_system, Polyline &p, TYPE t);
 bool is_in(vector<Polyline> vec1, vector<Polyline> vec2, Point a, Point b, TYPE t);
-
+void make_linked_Polyline(vector<Polyline>& Unlinked_Polyline_vector, vector<Polyline>& Linked_Polyline_vector);
 class Point			//공간 좌표 클래스
 {		
 private:
-	double x;
-	double y;
-	double z;
+	int x;
+	int y;
+	int z;
 	TYPE T;
 public:
 	friend class Polyline;
-	Point(double a,double b, double c, TYPE t)	//생성자
+	Point(int a, int b, int c, TYPE t)	//생성자
 		:x(a),y(b),z(c),T(t)
 	{}
 	bool operator ==(Point &p)					//==연산자 오버로딩
@@ -49,19 +49,19 @@ public:
 			return true;
 		else return false;
 	}
-	pair<double, double> xy() const				//xy평면 정사영 좌표 반환
+	pair<int, int> xy() const				//xy평면 정사영 좌표 반환
 	{
-		return pair<double, double>(x, y);
+		return pair<int, int>(x, y);
 	}
-	pair<double, double> xz() const				//xz평면 정사영 좌표 반환
+	pair<int, int> xz() const				//xz평면 정사영 좌표 반환
 	{
-		return pair<double, double>(x, z);
+		return pair<int, int>(x, z);
 	}
-	pair<double, double> yz() const				//yz평면 정사영 좌표 반환
+	pair<int, int> yz() const				//yz평면 정사영 좌표 반환
 	{
-		return pair<double, double>(y, z);
+		return pair<int, int>(y, z);
 	}
-	void set(double a, double b, double c)		//좌표 변경
+	void set(int a, int b, int c)		//좌표 변경
 	{
 		x = a;
 		y = b;
@@ -71,15 +71,15 @@ public:
 	{
 		return this->T;
 	}
-	double getX() const							//x좌표 반환
+	int getX() const							//x좌표 반환
 	{
 		return this->x;
 	}
-	double getY() const							//y좌표 반환
+	int getY() const							//y좌표 반환
 	{
 		return this->y;
 	}
-	double getZ() const							//z좌표 반환
+	int getZ() const							//z좌표 반환
 	{
 		return this->z;
 	}
@@ -147,8 +147,10 @@ public:
 int main() {
 	map < xyz, vector<reference_wrapper<Polyline>>> coordinate_system;	//공간좌표 생성
 	//system("python ./PolyLine_Extraction.py");						//PolyLine_Extraction.py 실행
-	//system("pause");
+
 	vector<Polyline>  front, rear, right, left, roof, floor;			//각 도면 선분 배열
+	vector<Polyline> front_linked, rear_linked, right_linked, left_linked, roof_linked, floor_linked;	//기본 선분 배열에, 연결된 선분들이 추가된 배열
+
 
 	readCSV(front, "front_view.csv",FRONT);								//csv파일에서 선분 읽어들이기
 	readCSV(rear, "rear_view.csv",REAR);
@@ -156,6 +158,14 @@ int main() {
 	readCSV(left, "left_view.csv",LEFT);
 	readCSV(roof, "roof_view.csv",ROOF);
 	readCSV(floor, "floor_view.csv",FLOOR);
+
+	make_linked_Polyline(front, front_linked);							//선분 정사영 검사에 사용되는 배열 생성
+	make_linked_Polyline(rear, rear_linked);
+	make_linked_Polyline(right, right_linked);
+	make_linked_Polyline(left, left_linked);
+	make_linked_Polyline(roof, roof_linked);
+	make_linked_Polyline(floor, floor_linked);
+
 
 	for (auto & p : front)												//공간좌표에 점 생성
 	{			
@@ -208,62 +218,58 @@ int main() {
 	bool is_in_axis_1,is_in_axis_2;
 	for (int i = 0; i < front.size(); i++) 
 	{
-		is_in_axis_1 = is_in(right, left, front[i].getA(), front[i].getB(), RIGHT);
-		is_in_axis_2 = is_in(roof, floor, front[i].getA(), front[i].getB(), ROOF);
+		is_in_axis_1 = is_in(right_linked, left_linked, front[i].getA(), front[i].getB(), RIGHT);
+		is_in_axis_2 = is_in(roof_linked, floor_linked, front[i].getA(), front[i].getB(), ROOF);
 		if (!(is_in_axis_1&&is_in_axis_2)) {
 			PolylineShift(coordinate_system, front[i], FRONT);
-			i = -1;
 		}
 	}
 	for (int i = 0; i < rear.size(); i++) 
 	{
-		is_in_axis_1 = is_in(right, left, rear[i].getA(), rear[i].getB(), RIGHT);
-		is_in_axis_2 = is_in(roof, floor, rear[i].getA(), rear[i].getB(), ROOF);
+		is_in_axis_1 = is_in(right_linked, left_linked, rear[i].getA(), rear[i].getB(), RIGHT);
+		is_in_axis_2 = is_in(roof_linked, floor_linked, rear[i].getA(), rear[i].getB(), ROOF);
 		if (!(is_in_axis_1&&is_in_axis_2)) {
 			PolylineShift(coordinate_system, rear[i], REAR);
-			i = -1;
 		}
 	}
 	for (int i = 0; i < right.size(); i++)
 	{
-		is_in_axis_1 = is_in(front, rear, right[i].getA(), right[i].getB(), FRONT);
-		is_in_axis_2 = is_in(roof, floor, right[i].getA(), right[i].getB(), ROOF);
+		is_in_axis_1 = is_in(front_linked, rear_linked, right[i].getA(), right[i].getB(), FRONT);
+		is_in_axis_2 = is_in(roof_linked, floor_linked, right[i].getA(), right[i].getB(), ROOF);
 		if (!(is_in_axis_1&&is_in_axis_2)) {
 			PolylineShift(coordinate_system, right[i], RIGHT);
-			i = -1;
 		}
 	}
 	for (int i = 0; i < left.size(); i++)
 	{
-		is_in_axis_1 = is_in(front, rear, left[i].getA(), left[i].getB(), FRONT);
-		is_in_axis_2 = is_in(roof, floor, left[i].getA(), left[i].getB(), ROOF);
+		is_in_axis_1 = is_in(front_linked, rear_linked, left[i].getA(), left[i].getB(), FRONT);
+		is_in_axis_2 = is_in(roof_linked, floor_linked, left[i].getA(), left[i].getB(), ROOF);
 		if (!(is_in_axis_1&&is_in_axis_2)) {
 			PolylineShift(coordinate_system, left[i], LEFT);
-			i = -1;
 		}
 	}
 	for (int i = 0; i < roof.size(); i++) 
 	{
-		is_in_axis_1 = is_in(right, left, roof[i].getA(), roof[i].getB(), RIGHT);
-		is_in_axis_2 = is_in(front, rear, roof[i].getA(), roof[i].getB(), FRONT);
+		is_in_axis_1 = is_in(right_linked, left_linked, roof[i].getA(), roof[i].getB(), RIGHT);
+		is_in_axis_2 = is_in(front_linked, rear_linked, roof[i].getA(), roof[i].getB(), FRONT);
 		if (!(is_in_axis_1&&is_in_axis_2)) {
 			PolylineShift(coordinate_system, roof[i], ROOF);
-			i = -1;
 		}
 	}
 	for (int i = 0; i < floor.size(); i++)
 	{
-		is_in_axis_1 = is_in(right, left, floor[i].getA(), floor[i].getB(), RIGHT);
-		is_in_axis_2 = is_in(front, rear, floor[i].getA(), floor[i].getB(), FRONT);
+		is_in_axis_1 = is_in(right_linked, left_linked, floor[i].getA(), floor[i].getB(), RIGHT);
+		is_in_axis_2 = is_in(front_linked, rear_linked, floor[i].getA(), floor[i].getB(), FRONT);
 		if (!(is_in_axis_1&&is_in_axis_2)) {
 			PolylineShift(coordinate_system, floor[i], FLOOR);
-			i = -1;
 		}
 	}
-	map < xyz, vector<reference_wrapper<Polyline>>> copy;
+
+	map < xyz, vector<reference_wrapper<Polyline>>> copy;		//중복 선분 제거용 복사 해쉬맵 
 	xyz temp,temp2;
 	bool overlap;
-	for (int i = 0; i < front.size(); i++) {
+	for (int i = 0; i < front.size(); i++)						//기존 해쉬맵에서 복사 해쉬맵으로 데이터를 옮기는 과정에서 중복 제거
+	{
 		temp = xyz(front[i].getA().getX(), front[i].getA().getY(), front[i].getA().getZ());
 		temp2 = xyz(front[i].getB().getX(), front[i].getB().getY(), front[i].getB().getZ());
 		if (copy[temp].size() == 0) {
@@ -400,7 +406,9 @@ int main() {
 			}
 		}
 	}
-	vector<Polyline> result;
+
+
+	vector<Polyline> result;	//양 끝점을 key로 저장된 선분의 중복 제거
 	bool is_in;
 	for (auto iter = copy.begin(); iter != copy.end(); iter++) {
 		
@@ -416,16 +424,18 @@ int main() {
 				result.push_back(iter->second[i].get());
 		}
 	}
-	ofstream os("3d.txt");
+	ofstream os("3d.txt");		//텍스트 파일 출력
 	for (int i = 0; i < result.size(); i++) {
 		os << result[i].getA().getX() << " " << result[i].getA().getY() << " " << result[i].getA().getZ() << " ";
-		os << result[i].getB().getX() << " " << result[i].getB().getY() << " " << result[i].getB().getZ() << endl;
+		os << result[i].getB().getX() << " " << result[i].getB().getY() << " " << result[i].getB().getZ();
+		if (i != (result.size() - 1))
+			os << endl;
 	}
 	os.close();
 	return 0;
 }
 
-void PolylineShift(map<xyz, vector<reference_wrapper<Polyline>>>& coordinate_system, Polyline &p, TYPE t) //특정 선분을 이동
+void PolylineShift(map<xyz, vector<reference_wrapper<Polyline>>>& coordinate_system, Polyline &p, TYPE t) //선분 p를 해당 선분이 포함된 도면의 법선 방향의 특정 위치로 이동
 {
 	Point a = p.getA();
 	Point b = p.getB();
@@ -436,26 +446,27 @@ void PolylineShift(map<xyz, vector<reference_wrapper<Polyline>>>& coordinate_sys
 	Polyline ab_ = Polyline(Point(get<0>(destination_b), get<1>(destination_b), get<2>(destination_b), t), Point(a.getX(), a.getY(), a.getZ(), t));
 	Polyline a_b_= Polyline(Point(get<0>(destination_a), get<1>(destination_a), get<2>(destination_a), t), Point(get<0>(destination_b), get<1>(destination_b), get<2>(destination_b), t));
 	for (int i = 0; i < coordinate_system[destination_a].size(); i++) {
-		if (a_b == coordinate_system[destination_a][i].get())	//선분 a_b가 존재하는 경우
+		if (a_b == coordinate_system[destination_a][i].get() && !(a_b == p))	//선분 a_b가 존재하는 경우
 			case1 = true;
-		if (a_b_ == coordinate_system[destination_a][i].get())	//선분a_b_가 존재하는 경우
+		if (a_b_ == coordinate_system[destination_a][i].get() && !(a_b == p))	//선분a_b_가 존재하는 경우
 			case3 = true;
 	}
 	for (int i = 0; i < coordinate_system[destination_b].size(); i++) //선분 ab_가 존재하는 경우
 	{
-		if (ab_ == coordinate_system[destination_b][i].get())
+		if (ab_ == coordinate_system[destination_b][i].get() && !(a_b == p))
 			case2 = true;
 	}
 	if (case1)			//case1, case2, case3 세 개의 경우 중 두 가지 이상이 동시에 만족되고 그 중 case3가 포함될 때, case3는 배제한다
 	{
 		xyz current_a = xyz(a.getX(), a.getY(), a.getZ());
-		for (auto iter = coordinate_system[current_a].begin(); iter != coordinate_system[current_a].end(); iter++) {
+		for (auto iter = coordinate_system[current_a].begin(); iter != coordinate_system[current_a].end(); iter++) //기존 해쉬맵 데이터 삭제
+		{
 			if (iter->get() == p) {
 				coordinate_system[current_a].erase(iter);
 				break;
 			}
 		}
-		p.replaceA(Point(get<0>(destination_a), get<1>(destination_a), get<2>(destination_a), t));
+		p.replaceA(Point(get<0>(destination_a), get<1>(destination_a), get<2>(destination_a), t));					//목적 위치의 좌표 해쉬맵에 원소 추가
 		coordinate_system[destination_a].push_back(p);
 	}
 	else if (case2) 
@@ -470,7 +481,7 @@ void PolylineShift(map<xyz, vector<reference_wrapper<Polyline>>>& coordinate_sys
 		p.replaceB(Point(get<0>(destination_b), get<1>(destination_b), get<2>(destination_b), t));
 		coordinate_system[destination_b].push_back(p);
 	}
-	else if (case3) {
+	else{
 		xyz current_a = xyz(a.getX(), a.getY(), a.getZ());
 		for (auto iter = coordinate_system[current_a].begin(); iter != coordinate_system[current_a].end(); iter++) {
 			if (iter->get() == p) {
@@ -493,9 +504,68 @@ void PolylineShift(map<xyz, vector<reference_wrapper<Polyline>>>& coordinate_sys
 	}
 }
 
+void make_linked_Polyline(vector<Polyline>& Unlinked_Polyline_vector, vector<Polyline>& Linked_Polyline_vector)		//연결점이 추가된 동적 배열 생성
+{
+	Point a(0,0,0,FRONT), b(0, 0, 0, FRONT), c(0, 0, 0, FRONT), d(0, 0, 0, FRONT);
+	int ab_deltaX, ab_deltaY, ab_deltaZ, cd_deltaX, cd_deltaY, cd_deltaZ;
+	for (int i = 0; i < Unlinked_Polyline_vector.size(); i++) {
+		Linked_Polyline_vector.push_back(Unlinked_Polyline_vector[i]);
+		a = Unlinked_Polyline_vector[i].getA();
+		b = Unlinked_Polyline_vector[i].getB();
+		for (int j = i + 1; j < Unlinked_Polyline_vector.size(); j++) {
+			c = Unlinked_Polyline_vector[j].getA();
+			d = Unlinked_Polyline_vector[j].getB();
+			if (a == c) {
+				ab_deltaX = a.getX() - b.getX();
+				ab_deltaY = a.getY() - b.getY();
+				ab_deltaZ = a.getZ() - b.getZ();
+
+				cd_deltaX = d.getX() - c.getX();
+				cd_deltaY = d.getY() - c.getY();
+				cd_deltaZ = d.getZ() - c.getZ();
+				if ((ab_deltaX*cd_deltaY == ab_deltaY * cd_deltaX) && (ab_deltaY*cd_deltaZ == ab_deltaZ * cd_deltaY) && (ab_deltaX*cd_deltaZ == ab_deltaZ * cd_deltaX))
+					Linked_Polyline_vector.push_back(Polyline(b,d));
+			}
+			if (a == d) {
+				ab_deltaX = a.getX() - b.getX();
+				ab_deltaY = a.getY() - b.getY();
+				ab_deltaZ = a.getZ() - b.getZ();
+
+				cd_deltaX = c.getX() - d.getX();
+				cd_deltaY = c.getY() - d.getY();
+				cd_deltaZ = c.getZ() - d.getZ();
+				if ((ab_deltaX*cd_deltaY == ab_deltaY * cd_deltaX) && (ab_deltaY*cd_deltaZ == ab_deltaZ * cd_deltaY) && (ab_deltaX*cd_deltaZ == ab_deltaZ * cd_deltaX))
+					Linked_Polyline_vector.push_back(Polyline(b,c));
+			}
+			if (b == c) {
+				ab_deltaX = b.getX() - a.getX();
+				ab_deltaY = b.getY() - a.getY();
+				ab_deltaZ = b.getZ() - a.getZ();
+
+				cd_deltaX = d.getX() - c.getX();
+				cd_deltaY = d.getY() - c.getY();
+				cd_deltaZ = d.getZ() - c.getZ();
+				if ((ab_deltaX*cd_deltaY == ab_deltaY * cd_deltaX) && (ab_deltaY*cd_deltaZ == ab_deltaZ * cd_deltaY) && (ab_deltaX*cd_deltaZ == ab_deltaZ * cd_deltaX))
+					Linked_Polyline_vector.push_back(Polyline(a,d));
+			}
+			if (b == d) {
+				ab_deltaX = b.getX() - a.getX();
+				ab_deltaY = b.getY() - a.getY();
+				ab_deltaZ = b.getZ() - a.getZ();
+
+				cd_deltaX = c.getX() - d.getX();
+				cd_deltaY = c.getY() - d.getY();
+				cd_deltaZ = c.getZ() - d.getZ();
+				if ((ab_deltaX*cd_deltaY == ab_deltaY * cd_deltaX) && (ab_deltaY*cd_deltaZ == ab_deltaZ * cd_deltaY) && (ab_deltaX*cd_deltaZ == ab_deltaZ * cd_deltaX))
+					Linked_Polyline_vector.push_back(Polyline(a,c));
+			}
+		}
+	}
+}
+
 bool is_in(vector<Polyline> vec1, vector<Polyline> vec2, Point a, Point b, TYPE t) //선분ab를 t 타입 도면의 법선 방향으로 정사영한 결과가 vec1,vec2에 존재하는지 확인		Type t : type of vector
 {
-	pair<double, double> projection_a, projection_b;	//정사영 a, b
+	pair<int, int> projection_a, projection_b;	//정사영 a, b
 	bool is_in_a_1 = false , is_in_b_1 = false, is_in_a_2 = false, is_in_b_2 = false;	//점a->vec1,vec2 점b->vec1,vec2
 	if (t == FRONT || t == REAR)		//정면도, 배면도
 	{
@@ -503,8 +573,10 @@ bool is_in(vector<Polyline> vec1, vector<Polyline> vec2, Point a, Point b, TYPE 
 		projection_b = b.xz();
 		if (projection_a == projection_b)	//xz평면에 수직하는 경우
 		{
-			for (int i = 0; i < vec1.size(); i++) {
-				if (projection_a == vec1[i].getA().xz() || projection_a == vec1[i].getB().xz()) {
+			for (int i = 0; i < vec1.size(); i++) 
+			{
+				if (projection_a == vec1[i].getA().xz() || projection_a == vec1[i].getB().xz()) //정사영된 점이 존재할 때
+				{
 					is_in_a_1 = true;
 					is_in_b_1 = true;
 					break;
@@ -512,7 +584,8 @@ bool is_in(vector<Polyline> vec1, vector<Polyline> vec2, Point a, Point b, TYPE 
 
 			}
 			for (int i = 0; i < vec2.size(); i++) {
-				if (projection_a == vec2[i].getA().xz() || projection_a == vec2[i].getB().xz()) {
+				if (projection_a == vec2[i].getA().xz() || projection_a == vec2[i].getB().xz()) 
+				{
 					is_in_a_2 = true;
 					is_in_b_2 = true;
 					break;
@@ -520,16 +593,20 @@ bool is_in(vector<Polyline> vec1, vector<Polyline> vec2, Point a, Point b, TYPE 
 			}
 		}
 		else {
-			for (int i = 0; i < vec1.size(); i++) {
-				if ((projection_a == vec1[i].getA().xz() && projection_b == vec1[i].getB().xz())|| (projection_a == vec1[i].getB().xz() && projection_b == vec1[i].getA().xz())) {
+			for (int i = 0; i < vec1.size(); i++) 
+			{
+				if ((projection_a == vec1[i].getA().xz() && projection_b == vec1[i].getB().xz())|| (projection_a == vec1[i].getB().xz() && projection_b == vec1[i].getA().xz()))	//정사영된 선분이 존재할 때
+				{
 					is_in_a_1 = true;
 					is_in_b_1 = true;
 					break;
 				}
 
 			}
-			for (int i = 0; i < vec2.size(); i++) {
-				if ((projection_a == vec1[i].getA().xz() && projection_b == vec1[i].getB().xz()) || (projection_a == vec1[i].getB().xz() && projection_b == vec1[i].getA().xz())) {
+			for (int i = 0; i < vec2.size(); i++) 
+			{
+				if ((projection_a == vec1[i].getA().xz() && projection_b == vec1[i].getB().xz()) || (projection_a == vec1[i].getB().xz() && projection_b == vec1[i].getA().xz())) 
+				{
 					is_in_a_2 = true;
 					is_in_b_2 = true;
 					break;
@@ -543,16 +620,20 @@ bool is_in(vector<Polyline> vec1, vector<Polyline> vec2, Point a, Point b, TYPE 
 		projection_b = b.yz();
 		if (projection_a == projection_b)	//yz평면에 수직하는 경우
 		{
-			for (int i = 0; i < vec1.size(); i++) {
-				if (projection_a == vec1[i].getA().yz() || projection_a == vec1[i].getB().yz()) {
+			for (int i = 0; i < vec1.size(); i++) 
+			{
+				if (projection_a == vec1[i].getA().yz() || projection_a == vec1[i].getB().yz())		//정사영된 점이 존재할 때
+				{
 					is_in_a_1 = true;
 					is_in_b_1 = true;
 					break;
 				}
 
 			}
-			for (int i = 0; i < vec2.size(); i++) {
-				if (projection_a == vec2[i].getA().yz() || projection_a == vec2[i].getB().yz()) {
+			for (int i = 0; i < vec2.size(); i++) 
+			{
+				if (projection_a == vec2[i].getA().yz() || projection_a == vec2[i].getB().yz()) 
+				{
 					is_in_a_2 = true;
 					is_in_b_2 = true;
 					break;
@@ -560,16 +641,20 @@ bool is_in(vector<Polyline> vec1, vector<Polyline> vec2, Point a, Point b, TYPE 
 			}
 		}
 		else {
-			for (int i = 0; i < vec1.size(); i++) {
-				if ((projection_a == vec1[i].getA().yz() && projection_b == vec1[i].getB().yz()) || (projection_a == vec1[i].getB().yz() && projection_b == vec1[i].getA().yz())) {
+			for (int i = 0; i < vec1.size(); i++) 
+			{
+				if ((projection_a == vec1[i].getA().yz() && projection_b == vec1[i].getB().yz()) || (projection_a == vec1[i].getB().yz() && projection_b == vec1[i].getA().yz()))	//정사영된 선분이 존재할 때
+				{
 					is_in_a_1 = true;
 					is_in_b_1 = true;
 					break;
 				}
 
 			}
-			for (int i = 0; i < vec2.size(); i++) {
-				if ((projection_a == vec2[i].getA().yz() && projection_b == vec2[i].getB().yz()) || (projection_a == vec2[i].getB().yz() && projection_b == vec2[i].getA().yz())) {
+			for (int i = 0; i < vec2.size(); i++)
+			{
+				if ((projection_a == vec2[i].getA().yz() && projection_b == vec2[i].getB().yz()) || (projection_a == vec2[i].getB().yz() && projection_b == vec2[i].getA().yz()))
+				{
 					is_in_a_2 = true;
 					is_in_b_2 = true;
 					break;
@@ -583,16 +668,20 @@ bool is_in(vector<Polyline> vec1, vector<Polyline> vec2, Point a, Point b, TYPE 
 		projection_b = b.xy();
 		if (projection_a == projection_b)	//xy평면에 수직하는 경우
 		{
-			for (int i = 0; i < vec1.size(); i++) {
-				if (projection_a == vec1[i].getA().xy() || projection_a == vec1[i].getB().xy()) {
+			for (int i = 0; i < vec1.size(); i++) 
+			{
+				if (projection_a == vec1[i].getA().xy() || projection_a == vec1[i].getB().xy())		//정사영된 점이 존재할 때
+				{
 					is_in_a_1 = true;
 					is_in_b_1 = true;
 					break;
 				}
 
 			}
-			for (int i = 0; i < vec2.size(); i++) {
-				if (projection_a == vec2[i].getA().xy() || projection_a == vec2[i].getB().xy()) {
+			for (int i = 0; i < vec2.size(); i++) 
+			{
+				if (projection_a == vec2[i].getA().xy() || projection_a == vec2[i].getB().xy())
+				{
 					is_in_a_2 = true;
 					is_in_b_2 = true;
 					break;
@@ -600,16 +689,20 @@ bool is_in(vector<Polyline> vec1, vector<Polyline> vec2, Point a, Point b, TYPE 
 			}
 		}
 		else {
-			for (int i = 0; i < vec1.size(); i++) {
-				if ((projection_a == vec1[i].getA().xy() && projection_b == vec1[i].getB().xy()) || (projection_a == vec1[i].getB().xy() && projection_b == vec1[i].getA().xy())) {
+			for (int i = 0; i < vec1.size(); i++) 
+			{
+				if ((projection_a == vec1[i].getA().xy() && projection_b == vec1[i].getB().xy()) || (projection_a == vec1[i].getB().xy() && projection_b == vec1[i].getA().xy()))	//정사영된 선분이 존재할 때
+				{
 					is_in_a_1 = true;
 					is_in_b_1 = true;
 					break;
 				}
 
 			}
-			for (int i = 0; i < vec2.size(); i++) {
-				if ((projection_a == vec2[i].getA().xy() && projection_b == vec2[i].getB().xy()) || (projection_a == vec2[i].getB().xy() && projection_b == vec2[i].getA().xy())) {
+			for (int i = 0; i < vec2.size(); i++) 
+			{
+				if ((projection_a == vec2[i].getA().xy() && projection_b == vec2[i].getB().xy()) || (projection_a == vec2[i].getB().xy() && projection_b == vec2[i].getA().xy())) 
+				{
 					is_in_a_2 = true;
 					is_in_b_2 = true;
 					break;
@@ -617,7 +710,7 @@ bool is_in(vector<Polyline> vec1, vector<Polyline> vec2, Point a, Point b, TYPE 
 			}
 		}
 	}
-	return (is_in_a_1&&is_in_b_1) && (is_in_a_2&&is_in_b_2);
+	return (is_in_a_1&&is_in_b_1) && (is_in_a_2&&is_in_b_2);	//수직하는 두 축의 방향으로 모두 정사영된 도형이 존재하는 경우 true 반환
 }
 
 void PointShift(map<xyz,vector<reference_wrapper<Polyline>>>& coordinate_system, map<xyz, vector<reference_wrapper<Polyline>>>::iterator iter) //특정 점을 지나는 선분들에 대해, 해당 점 치환
@@ -646,16 +739,16 @@ void PointShift(map<xyz,vector<reference_wrapper<Polyline>>>& coordinate_system,
 
 xyz find_on_normal_line(map<xyz, vector<reference_wrapper<Polyline>>>& coordinate_system, TYPE t, const xyz& p) //특정 점에 대해, 해당 점을 지나는 도면의 법선 상 점 탐색
 {
-	function < tuple<double,double>(xyz)> func;	//함수 선언
-	double distance = numeric_limits<double>::max();
-	double temp;
+	function < tuple<int, int>(xyz)> func;	//함수 선언
+	int distance = numeric_limits<int>::max();
+	int temp;
 	xyz temp_point = xyz(0, 0, 0);
 	if(t==FRONT||t==REAR)	//xz평면
-		func = [](xyz x)->tuple<double, double> {return tuple<double,double>(get<0>(x), get<2>(x)); };
+		func = [](xyz x)->tuple<int, int> {return tuple<int, int>(get<0>(x), get<2>(x)); };
 	else if(t==RIGHT||t==LEFT)	//yz평면
-		func = [](xyz x)->tuple<double, double> {return tuple<double, double>(get<1>(x), get<2>(x)); };
+		func = [](xyz x)->tuple<int, int> {return tuple<int, int>(get<1>(x), get<2>(x)); };
 	else//xy평면
-		func = [](xyz x)->tuple<double, double> {return tuple<double, double>(get<0>(x), get<1>(x)); };
+		func = [](xyz x)->tuple<int, int> {return tuple<int, int>(get<0>(x), get<1>(x)); };
 
 	auto func2 = std::bind(func, p);		//점 p를 func함수에 바인딩
 
@@ -689,7 +782,7 @@ bool Check(const map<xyz, vector<reference_wrapper<Polyline>>>::iterator& iter)	
 		if (t != iter->second[i].get().getType())
 			type = true;
 	}
-	return (type&&(iter->second.size()>2));
+	return (type||(iter->second.size()>2));
 }
 
 void printType(TYPE t) {
@@ -717,23 +810,24 @@ void printType(TYPE t) {
 }
 
 
-void readCSV(vector<Polyline>& line, string csv,TYPE T) {
+void readCSV(vector<Polyline>& line, string csv,TYPE T)		//CSV파일에서 공간좌표 정보를 읽어들임
+{
 	ifstream i;
 	string str;
-	double a_x, a_y, a_z, b_x, b_y, b_z;
+	int a_x, a_y, a_z, b_x, b_y, b_z;
 	i.open(csv);
 	while (getline(i, str, ',')) {
-		a_x = stod(str);
+		a_x = stoi(str);
 		getline(i, str, ',');
-		a_y = stod(str);
+		a_y = stoi(str);
 		getline(i, str, ',');
-		a_z = stod(str);
+		a_z = stoi(str);
 		getline(i, str, ',');
-		b_x = stod(str);
+		b_x = stoi(str);
 		getline(i, str, ',');
-		b_y = stod(str);
+		b_y = stoi(str);
 		i >> str;
-		b_z = stod(str);
+		b_z = stoi(str);
 		line.push_back(Polyline(Point(a_x, a_y, a_z, T), Point(b_x, b_y, b_z, T)));
 		getline(i, str);
 	}
