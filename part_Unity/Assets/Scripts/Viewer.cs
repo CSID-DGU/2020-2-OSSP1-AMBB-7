@@ -85,6 +85,7 @@ public class Viewer : MonoBehaviour
 /*		List<BeamLine> cur = beamLines;*/
 		GameObject gameObject = null, createdObject;
 		Vector3 position, rotation;
+		float maxDistance = -1f, curDistance;
 		for (int i = 0; i < cur.Count; i++)
 		{
 			connectors.Add(cur[i].start);
@@ -101,7 +102,13 @@ public class Viewer : MonoBehaviour
 
 			Vector3 diff = cur[i].end - cur[i].start;
 			diffArr.Insert(i, diff);
-			
+
+			curDistance = Mathf.Sqrt(diff.x * diff.x + diff.y + diff.y + diff.z + diff.z);
+			if (curDistance > maxDistance)
+			{
+				maxDistance = curDistance;
+			}
+
 			position = cur[i].start + cur[i].end;
 			position.x /= 2.0f;
 			position.y /= 2.0f;
@@ -117,7 +124,8 @@ public class Viewer : MonoBehaviour
 			createdObject.GetComponent<BeamInfo>().Info = cur[i].InfoToPrint; // REAL USE
 			//createdObject.GetComponent<BeamInfo>().Info = "Beam " + i; // FOR TESTING
 		}
-        int idx = 0;
+		PlayerPrefs.SetFloat("maxDistance", maxDistance);
+		int idx = 0;
         foreach (Vector3 e in connectors)
         {
             gameObject = CONNECTOR;
