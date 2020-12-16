@@ -16,10 +16,51 @@ public class ReadDonghos
 
 	public List<BeamLine> run()
 	{
+		prepareRun();
 		runPython();
 		runCPP();
 		ReadTXTFiles();
+/*		removeTrash();*/
 		return beamList;
+	}
+
+	public void prepareRun()
+	{
+		string[] rename = new string[]
+		{
+			"roof_floor_view.xls",
+			"right_side_view.xls",
+			"rear_view.xls",
+			"left_side_view.xls",
+			"front_view.xls",
+			"floor_view.xls"
+		};
+		string[] playerprefs = new string[]
+		{
+			StaticVariable.ROOF,
+			StaticVariable.RIGHT,
+			StaticVariable.REAR,
+			StaticVariable.LEFT,
+			StaticVariable.FRONT,
+			StaticVariable.FLOOR
+		};
+		for (int i = 0; i < 6; i++)
+		{
+			var proc = new Process
+			{
+				StartInfo = new ProcessStartInfo
+				{
+					FileName = "CMD.exe",
+					Arguments = "/C cp " + PlayerPrefs.GetString(playerprefs[i]) + " " + path + "\\" + rename[i],
+					UseShellExecute = false,
+					RedirectStandardOutput = true,
+					CreateNoWindow = true
+				}
+			};
+			proc.Start();
+			proc.WaitForExit();
+			proc.Close();
+		}
 	}
 
 	private void runPython()
@@ -89,5 +130,23 @@ public class ReadDonghos
 		rotatePoint.x = (float)rotatePoint.x / (float)lines.Length / 2;
 		rotatePoint.y = (float)rotatePoint.y / (float)lines.Length / 2;
 		rotatePoint.z = (float)rotatePoint.z / (float)lines.Length / 2;
+	}
+
+	public void removeTrash()
+	{
+		var proc = new Process
+		{
+			StartInfo = new ProcessStartInfo
+			{
+				FileName = "CMD.exe",
+				Arguments = "/C rm -rf *.xls *.csv 3d.txt",
+				UseShellExecute = false,
+				RedirectStandardOutput = true,
+				CreateNoWindow = true
+			}
+		};
+		proc.Start();
+		proc.WaitForExit();
+		proc.Close();
 	}
 }
