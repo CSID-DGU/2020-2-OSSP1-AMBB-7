@@ -47,7 +47,7 @@ public class BeamLine
 			{
                 prefix = _CONNECTOR_prefix;
 			}
-            return prefix + info;
+            return prefix + " / " + info;
         }
     }
 

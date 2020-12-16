@@ -13,7 +13,7 @@ public class Viewer : MonoBehaviour
 	private HashSet<Vector3> connectors;
 	private List<Vector3> diffArr = new List<Vector3>();
 
-	private List<List<BeamLine>> beamLinesList;
+	public static List<List<BeamLine>> beamLinesList;
 	// Start is called before the first frame update
 	void Awake()
 	{
