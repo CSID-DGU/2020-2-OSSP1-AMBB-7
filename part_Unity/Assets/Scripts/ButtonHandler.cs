@@ -10,7 +10,7 @@ public class ButtonHandler : MonoBehaviour
 {
     Button button;
     Text text;
-    string currentDate = DateTime.Now.ToString(("yyMMdd_HH-mm-ss"));
+    string currentDate = DateTime.Now.ToString(("HH-mm-ss_yyMMdd"));
 
     public GameObject controlObject;
     
@@ -48,7 +48,7 @@ public class ButtonHandler : MonoBehaviour
 
         yield return new WaitForEndOfFrame();
 
-        ScreenCapture.CaptureScreenshot("Assets/Output/" + currentDate + "_" + fileName + ".jpg");
+        ScreenCapture.CaptureScreenshot("Assets/Output/" + fileName + "_" + currentDate + ".jpg");
 
         GameObject.Find("Canvas").GetComponent<Canvas>().enabled = true;
 
