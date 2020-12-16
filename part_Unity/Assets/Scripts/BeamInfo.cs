@@ -29,4 +29,10 @@ public class BeamInfo : MonoBehaviour
         beamInfoText.text = "";
         mesh.material.color = original;
     }
+
+
+    private void Update() // FOR DEBUGGING
+    {
+        Debug.DrawLine(gameObject.transform.position, Vector3.right);
+    }
 }
