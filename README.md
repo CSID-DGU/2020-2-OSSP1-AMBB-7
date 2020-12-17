@@ -22,7 +22,7 @@ Left Side View (좌측면도)
 Right Side View (우측면도)
 Roof Floor View (지붕 평면도)
 Rear View (배면도)
-에 속하는 파일들을 ExcelFiles 폴더 내에서 원하는 번호를 선택해 넣어 준다.
+에 속하는 파일들을 ExcelFiles 폴더 내에서 번호하나를 선택해 같은 번호들의  넣어 준다.
 3. Build 버튼을 눌러 3D 도면을 생성한다.
 4. 이후, 다른 도면을 보고 싶다면 Load Files 버튼을 눌러 다시 다른 도면 파일들을 불러와준다.
 
