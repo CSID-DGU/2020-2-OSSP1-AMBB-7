@@ -117,7 +117,7 @@ public class PrintingManager : MonoBehaviour
                     if (find == false)
                     {
                         cnt_HBeam++;
-                        HBeam.Add(new KeyInfo(Viewer.beamLinesList[0][i].InfoToPrint, Viewer.beamLinesList[0][i].price));
+                        HBeam.Add(new KeyInfo(Viewer.beamLinesList[0][i].InfoToPrint, Viewer.beamLinesList[0][i].price, 1));
                     }
                 }
                 else if (Viewer.beamLinesList[0][i].type == RAKE.BEAM_TYPE.PILLAR)
@@ -134,7 +134,7 @@ public class PrintingManager : MonoBehaviour
                     if (find == false)
                     {
                         cnt_Pillar++;
-                        Pillar.Add(new KeyInfo(Viewer.beamLinesList[0][i].InfoToPrint, Viewer.beamLinesList[0][i].price));
+                        Pillar.Add(new KeyInfo(Viewer.beamLinesList[0][i].InfoToPrint, Viewer.beamLinesList[0][i].price, 1));
                     }
                 }
                 else if (Viewer.beamLinesList[0][i].type == RAKE.BEAM_TYPE.CONNECTOR)
@@ -151,7 +151,7 @@ public class PrintingManager : MonoBehaviour
                     if (find == false)
                     {
                         cnt_Connector++;
-                        Connector.Add(new KeyInfo(Viewer.beamLinesList[0][i].InfoToPrint, Viewer.beamLinesList[0][i].price));
+                        Connector.Add(new KeyInfo(Viewer.beamLinesList[0][i].InfoToPrint, Viewer.beamLinesList[0][i].price, 1));
                     }
                 }
                 total_Price += Viewer.beamLinesList[0][i].price;

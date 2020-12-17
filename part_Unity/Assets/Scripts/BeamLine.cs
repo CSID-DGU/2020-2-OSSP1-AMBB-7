@@ -46,6 +46,7 @@ public class BeamLine
             else if (type == RAKE.BEAM_TYPE.CONNECTOR)
 			{
                 prefix = _CONNECTOR_prefix;
+                info = "Open cube";
 			}
             return prefix + " / " + info;
         }

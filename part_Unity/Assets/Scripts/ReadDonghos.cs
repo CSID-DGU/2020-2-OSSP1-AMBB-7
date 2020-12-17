@@ -23,8 +23,8 @@ public class ReadDonghos
         runPython();
         runCPP();
         ReadTXTFiles();
-        /*      removeTrash();*/
-        return beamList;
+		removeTrash();
+		return beamList;
     }
 
     public void prepareRun()
@@ -141,6 +141,7 @@ public class ReadDonghos
 
     public void removeTrash()
     {
+        Thread.Sleep(5000);
         var proc = new Process
         {
             StartInfo = new ProcessStartInfo
@@ -153,7 +154,6 @@ public class ReadDonghos
             }
         };
         proc.Start();
-        Thread.Sleep(1000);
         proc.WaitForExit(1000);
         proc.Close();
     }
