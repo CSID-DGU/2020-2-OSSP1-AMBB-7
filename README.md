@@ -10,7 +10,7 @@ Auto 3D Modeling for 2D Building Blueprints
 - 윈도우 전용 빌드로, 운영체제는 윈도우여야 합니다.
 - 파이썬이 설치된 PC여야 합니다.
 - c, c++가 설치된 PC여야 합니다.
-- github의 BuilFile 폴더와, ExcelFiles 폴더를 다운받아야 합니다.
+- github의 BuildFile 폴더와, ExcelFiles 폴더를 다운받아야 합니다.
 
 # 빌드 파일 실행 방법 #
 1. BuildFile 폴더 안의 part_Unity.exe를 실행한다.
