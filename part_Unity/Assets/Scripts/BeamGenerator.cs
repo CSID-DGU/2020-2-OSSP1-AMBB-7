@@ -106,6 +106,7 @@ class BeamGenerator
 					continue;
 				}
 				ret[i].info = HBeam[hIdx].info;
+				ret[i].price = HBeam[hIdx].price;
 			}
 			else
 			{
@@ -119,6 +120,7 @@ class BeamGenerator
 					continue;
 				}
 				ret[i].info = Pillar[pIdx].info;
+				ret[i].price = Pillar[pIdx].price;
 			}
 		}
 		return ret;

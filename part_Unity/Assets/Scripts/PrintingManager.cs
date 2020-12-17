@@ -23,7 +23,7 @@ public class PrintingManager : MonoBehaviour
     string pdfPath = null;
     void Start()
     {
-        assetsPath = Application.dataPath;
+        assetsPath = System.Environment.CurrentDirectory;
         pdfPath = assetsPath + "/Output/pdfExtraction.pdf";
 
         itemsEng.Add("Front View");
@@ -65,9 +65,9 @@ public class PrintingManager : MonoBehaviour
             price = _price;
             cnt = _cnt;
         }
-        public string type;
-        public int price = 0;
-        public int cnt = 0;
+        public string type; // infoToPrint
+        public int price = 0; // price
+        public int cnt = 0; // 
     }
     public void GenerateFile()
     {
@@ -107,7 +107,7 @@ public class PrintingManager : MonoBehaviour
                 {
                     for (int j = 0; j < HBeam.Count; j++)
                     {
-                        if(HBeam[j].type == Viewer.beamLinesList[0][i].InfoToPrint)
+                        if (HBeam[j].type == Viewer.beamLinesList[0][i].InfoToPrint)
                         {
                             HBeam[j].cnt++;
                             find = true;
@@ -157,30 +157,55 @@ public class PrintingManager : MonoBehaviour
                 total_Price += Viewer.beamLinesList[0][i].price;
                 total_Number++;
             }
-            
-            pdfTable.AddCell(new PdfPCell(new Phrase("Detailed Statements of Architecture")));
+
+            PdfPCell cell = new PdfPCell(new Phrase("Detailed Statements of Architecture"));
+            cell.Colspan = 3;
+            cell.HorizontalAlignment = 1;
+            cell.Padding = 10;
+            pdfTable.AddCell(cell);
             pdfTable.AddCell(new Phrase("Item / Type"));
             pdfTable.AddCell(new Phrase("Numbers of Item"));
             pdfTable.AddCell(new Phrase("Price"));
 
+            cell = new PdfPCell(new Phrase("H beam"));
+            cell.Colspan = 3;
+            cell.HorizontalAlignment = 0;
+            cell.Padding = 10;
+            pdfTable.AddCell(cell);
             for (int i = 0; i < cnt_HBeam; i++)
             {
                 pdfTable.AddCell(new Phrase(HBeam[i].type));
-                pdfTable.AddCell(new Phrase(HBeam[i].cnt));
-                pdfTable.AddCell(new Phrase(HBeam[i].price));
+                pdfTable.AddCell(new Phrase(HBeam[i].cnt.ToString()));
+                pdfTable.AddCell(new Phrase(HBeam[i].price.ToString()));
             }
+
+            cell = new PdfPCell(new Phrase("Pillar"));
+            cell.Colspan = 3;
+            cell.HorizontalAlignment = 0;
+            cell.Padding = 10;
+            pdfTable.AddCell(cell);
+
             for (int i = 0; i < cnt_Pillar; i++)
             {
                 pdfTable.AddCell(new Phrase(Pillar[i].type));
-                pdfTable.AddCell(new Phrase(Pillar[i].cnt));
-                pdfTable.AddCell(new Phrase(Pillar[i].price));
+                pdfTable.AddCell(new Phrase(Pillar[i].cnt.ToString()));
+                pdfTable.AddCell(new Phrase(Pillar[i].price.ToString()));
             }
+
+            cell = new PdfPCell(new Phrase("Connector"));
+            cell.Colspan = 3;
+            cell.HorizontalAlignment = 0;
+            cell.Padding = 10;
+            pdfTable.AddCell(cell);
+
             for (int i = 0; i < cnt_Connector; i++)
             {
                 pdfTable.AddCell(new Phrase(Connector[i].type));
-                pdfTable.AddCell(new Phrase(Connector[i].cnt));
-                pdfTable.AddCell(new Phrase(Connector[i].price));
+                pdfTable.AddCell(new Phrase(Connector[i].cnt.ToString()));
+                pdfTable.AddCell(new Phrase(Connector[i].price.ToString()));
             }
+
+
 
             pdfTable.AddCell(new Phrase("Total Price : "));
             pdfTable.AddCell(new Phrase(total_Number.ToString()));

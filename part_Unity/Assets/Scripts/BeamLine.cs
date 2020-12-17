@@ -51,7 +51,7 @@ public class BeamLine
         }
     }
 
-    public int price { get; }
+    public int price { get; set; }
 
     /// <summary>
     /// default contructor

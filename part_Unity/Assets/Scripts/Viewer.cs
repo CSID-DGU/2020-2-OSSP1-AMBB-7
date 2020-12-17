@@ -134,6 +134,7 @@ public class Viewer : MonoBehaviour
             createdObject.transform.rotation = Quaternion.LookRotation(diffArr[idx++], Vector3.up);
             createdObject.transform.position = e;
             createdObject.transform.parent = viewerParent.transform;
+			beamLinesList[0].Add(new BeamLine(e, BeamManager.Connector[0].price));
         }
     }
 
