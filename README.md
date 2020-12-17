@@ -16,13 +16,13 @@ Auto 3D Modeling for 2D Building Blueprints
 1. BuildFile 폴더 안의 part_Unity.exe를 실행한다.
 (1-1. 창모드로 실행이 되었다면, alt + enter 키를 눌러 전체화면으로 전환해 줍니다.)
 2. 각 순서대로
-Floor View (평면도)
-Front View (정면도)
-Left Side View (좌측면도)
-Right Side View (우측면도)
-Roof Floor View (지붕 평면도)
-Rear View (배면도)
-에 속하는 파일들을 ExcelFiles 폴더 내에서 번호하나를 선택해 같은 번호들의  넣어 준다.
+- Floor View (평면도)
+- Front View (정면도)
+- Left Side View (좌측면도)
+- Right Side View (우측면도)
+- Roof Floor View (지붕 평면도)
+- Rear View (배면도)
+에 속하는 파일들을 ExcelFiles 폴더 내에서 번호하나를 선택해 같은 번호들을 넣어 준다.
 3. Build 버튼을 눌러 3D 도면을 생성한다.
 4. 이후, 다른 도면을 보고 싶다면 Load Files 버튼을 눌러 다시 다른 도면 파일들을 불러와준다.
 
