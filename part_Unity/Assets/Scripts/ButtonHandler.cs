@@ -17,15 +17,14 @@ public class ButtonHandler : MonoBehaviour
     public void OnClickButton()
     {
         WriteInfo();
-        Debug.Log("path : " + path);
-        StartCoroutine(CaptureJpg());
-
+        //StartCoroutine(CaptureJpg());
+        StartCoroutine(GameObject.Find("Button").GetComponent<ButtonHandler>().CaptureJpgforPDF("3dModelCapture" + currentDate, false));
         StartCoroutine(ShowSaveText());
     }
 
     public void WriteInfo()
     {
-        StreamWriter sw = new StreamWriter(path + "/Output/3DmodelInfo.txt");
+        StreamWriter sw = new StreamWriter("3DmodelInfo.txt");
         sw.WriteLine("Add 3d object's information (Beam's type, number, price...)");
         sw.Close();
     }
@@ -33,13 +32,11 @@ public class ButtonHandler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
         controlObject = GameObject.Find("SaveText");
         text = controlObject.GetComponent<Text>();
         text.text = "";
         button = GetComponent<Button>();
         button.onClick.AddListener(OnClickButton);
-
     }
 
     public IEnumerator CaptureJpg(string fileName = "3DmodelCapture", bool wait = true)
@@ -49,7 +46,7 @@ public class ButtonHandler : MonoBehaviour
 
         yield return new WaitForEndOfFrame();
 
-        ScreenCapture.CaptureScreenshot(path + "/Output/" + fileName + "_" + currentDate + ".jpg");
+        ScreenCapture.CaptureScreenshot(fileName + ".jpg");
 
         GameObject.Find("Canvas").GetComponent<Canvas>().enabled = true;
 
@@ -63,7 +60,7 @@ public class ButtonHandler : MonoBehaviour
 
         yield return new WaitForEndOfFrame();
 
-        ScreenCapture.CaptureScreenshot(path + "/Output/" + fileName + ".jpg");
+        ScreenCapture.CaptureScreenshot(fileName + ".jpg");
 
         GameObject.Find("Canvas").GetComponent<Canvas>().enabled = true;
 

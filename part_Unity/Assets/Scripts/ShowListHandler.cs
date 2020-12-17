@@ -9,12 +9,12 @@ public class ShowListHandler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        string[] fileEntries = Directory.GetFiles("Assets/Output/", "*.jpg");
+        string[] fileEntries = Directory.GetFiles("file://" + Application.dataPath + "/" , "*.jpg");
         List<string> files = new List<string>();
         foreach (string fileName in fileEntries)
         {
             //Debug.Log(Path.GetFileName(fileName));
-            files.Add(Path.GetFileName(fileName));
+            files.Add(fileName);
         }
 
         var dropdown = transform.GetComponent<Dropdown>();
@@ -37,7 +37,7 @@ public class ShowListHandler : MonoBehaviour
     {
         int index = dropdown.value;
 
-        string[] fileEntries = Directory.GetFiles("Assets/Output/", "*.jpg");
+        string[] fileEntries = Directory.GetFiles("file://" + Application.dataPath + "/", "*.jpg");
         List<string> files2 = new List<string>();
         foreach (string fileName in fileEntries)
         {

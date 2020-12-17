@@ -23,8 +23,8 @@ public class ReadDonghos
         runPython();
         runCPP();
         ReadTXTFiles();
-		removeTrash();
-		return beamList;
+        removeTrash();
+        return beamList;
     }
 
     public void prepareRun()
@@ -54,7 +54,7 @@ public class ReadDonghos
                 StartInfo = new ProcessStartInfo
                 {
                     FileName = "CMD.exe",
-                    Arguments = "/C cp " + PlayerPrefs.GetString(playerprefs[i]) + " " + path + "\\" + rename[i],
+                    Arguments = "/C copy " + PlayerPrefs.GetString(playerprefs[i]) + " " + path + "\\" + rename[i],
                     UseShellExecute = false,
                     RedirectStandardOutput = true,
                     CreateNoWindow = false
@@ -74,15 +74,15 @@ public class ReadDonghos
             {
                 FileName = "CMD.exe",
                 Arguments = "/C cd " + path + " & " + path + "\\PolyLine_Extraction.exe",
+                //Arguments = "/C cd " + path + " & python3 PolyLine_Extraction.py",
                 UseShellExecute = false,
                 RedirectStandardOutput = true,
                 CreateNoWindow = true
             }
         };
-        UnityEngine.Debug.Log("/C " + path + "\\PolyLine_Extraction.exe");
         proc.Start();
-        proc.WaitForExit(1000);
-        Thread.Sleep(10000);
+        UnityEngine.Debug.Log(proc.StandardOutput.ReadToEnd());
+        proc.WaitForExit(4000);
         proc.Close();
     }
 
@@ -101,10 +101,8 @@ public class ReadDonghos
             }
         };
         proc.Start();
-        Thread.Sleep(1000);
-        proc.WaitForExit(1000);
+        proc.WaitForExit(3000);
         proc.Close();
-        UnityEngine.Debug.Log("/C cd " + path + " & " + path + "\\Link.exe");
     }
 
     private void ReadTXTFiles()
@@ -131,9 +129,8 @@ public class ReadDonghos
             p1 = new Vector3(fpoints[0], fpoints[2], fpoints[1]);
             p2 = new Vector3(fpoints[3], fpoints[5], fpoints[4]);
             beamList.Add(new BeamLine(p1, p2));
-            UnityEngine.Debug.Log(beamList[beamList.Count - 1].start + " " + beamList[beamList.Count - 1].end);
         }
-        UnityEngine.Debug.Log("giumoring : " + lines.Length + ", " + rotatePoint.x + ", " + rotatePoint.y + ", " + rotatePoint.z);
+        Thread.Sleep(1000);
         rotatePoint.x = (float)rotatePoint.x / (float)lines.Length / 2;
         rotatePoint.y = (float)rotatePoint.y / (float)lines.Length / 2;
         rotatePoint.z = (float)rotatePoint.z / (float)lines.Length / 2;
@@ -147,7 +144,7 @@ public class ReadDonghos
             StartInfo = new ProcessStartInfo
             {
                 FileName = "CMD.exe",
-                Arguments = "/C rm -rf *.xls *.csv 3d.txt",
+                Arguments = "/C del -rf *.xls *.csv 3d.txt",
                 UseShellExecute = false,
                 RedirectStandardOutput = true,
                 CreateNoWindow = true

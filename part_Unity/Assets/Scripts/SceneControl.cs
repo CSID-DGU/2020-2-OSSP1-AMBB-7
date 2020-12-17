@@ -24,6 +24,6 @@ public class SceneControl : MonoBehaviour
         PlayerPrefs.SetString(StaticVariable.RIGHT, rightText);
         PlayerPrefs.SetString(StaticVariable.ROOF, roofText);
         PlayerPrefs.SetString(StaticVariable.REAR, rearText);
-        SceneClickListener(0);
+        SceneClickListener(1);
 	}
 }

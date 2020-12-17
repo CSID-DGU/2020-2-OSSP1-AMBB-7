@@ -24,14 +24,14 @@ public class PrintingManager : MonoBehaviour
     void Start()
     {
         assetsPath = System.Environment.CurrentDirectory;
-        pdfPath = assetsPath + "/Output/pdfExtraction.pdf";
+        pdfPath = "pdfExtraction.pdf";
 
-        itemsEng.Add("Front View");
-        itemsEng.Add("Left Side View");
-        itemsEng.Add("Right Side View");
-        itemsEng.Add("Floor Plan");
-        itemsEng.Add("Rear View");
-        itemsEng.Add("Bottom View");
+        itemsEng.Add("FrontView");
+        itemsEng.Add("LeftSideView");
+        itemsEng.Add("RightSideView");
+        itemsEng.Add("FloorPlan");
+        itemsEng.Add("RearView");
+        itemsEng.Add("BottomView");
 
         button = GetComponent<Button>();
         button.onClick.AddListener(OnClickButton);
@@ -48,7 +48,7 @@ public class PrintingManager : MonoBehaviour
         foreach (var item in itemsEng)
         {
             cameraOrbit.transform.eulerAngles = angles[idx];
-            StartCoroutine(GameObject.Find("Button").GetComponent<ButtonHandler>().CaptureJpgforPDF("Views/" + item, false));
+            StartCoroutine(GameObject.Find("Button").GetComponent<ButtonHandler>().CaptureJpgforPDF(item, false));
             yield return new WaitForSeconds(0.2f);
             Debug.Log(idx);
             idx++;
@@ -222,7 +222,7 @@ public class PrintingManager : MonoBehaviour
                 p.Alignment = Element.ALIGN_CENTER;
                 document.Add(p);
 
-                string imageURL = assetsPath + "/Output/Views/" + item + ".jpg";
+                string imageURL = "file://" + Application.dataPath + "/" + item +".jpg"; //relative path that works!
                 iTextSharp.text.Image jpg = iTextSharp.text.Image.GetInstance(imageURL);
                 jpg.ScaleToFit(480f, 360f); //image resizing
                 jpg.SpacingBefore = 10f;    //image spacing
