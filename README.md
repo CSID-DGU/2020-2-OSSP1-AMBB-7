@@ -6,9 +6,19 @@ Auto 3D Modeling for 2D Building Blueprints
 2. install unityEditor(Recommended Version: 2019.4.13f1)
 3. add Project `part_unity`
 
+# 도면 제약 조건 #
+1. 각 Line의 Delta X, Delta Y 값은 모두 정수여야합니다.
+2. 선분 AB위의 점 C에 대해, 점 C를 양 끝점 중 하나로 갖는 선분이 존재한다면 AB는 반드시 AC, CB로 표현되어야 합니다.
+3. Auto CAD가 한글버전일 경우, DATA EXTRACTION을 수행한 엑셀(.xls)파일의 칼럼 명을 다음과 같이 변경해야 합니다.
+- 델타 X -> Delta X
+- 델타 Y -> Delta Y
+- 시작 X -> Start X
+- 시작 Y -> Start Y
+- 이름 -> Name ( 이름 칼럼에 속하는 모든 '선' 값을 갖는 데이터에 대해 Line으로 데이터 값을 변경해야합니다.)
+
 # 빌드파일 실행 시 참고 사항 #
 - 윈도우 전용 빌드로, 운영체제는 윈도우여야 합니다.
-- 파이썬이 설치된 PC여야 합니다.
+- 파이썬과 Pandas 모듈이 설치된 PC여야 합니다.
 - c, c++가 설치된 PC여야 합니다.
 - github의 BuildFile 폴더와, ExcelFiles 폴더를 다운받아야 합니다.
 
