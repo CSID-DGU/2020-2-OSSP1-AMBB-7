@@ -19,6 +19,7 @@ Auto 3D Modeling for 2D Building Blueprints
 # 빌드파일 실행 시 참고 사항 #
 - 윈도우 전용 빌드로, 운영체제는 윈도우여야 합니다.
 - 파이썬과 Pandas 모듈이 설치된 PC여야 합니다.
+- 본 프로그램은 Python 3.8.1 버전 기준으로 작성되었습니다.
 - c, c++가 설치된 PC여야 합니다.
 - github의 BuildFile 폴더와, ExcelFiles 폴더를 다운받아야 합니다.
 
